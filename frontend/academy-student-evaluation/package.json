@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start": "concurrently 'npm run start:frontend' 'npm run start:server'",
+    "start:frontend": "ng serve --proxyConfig=proxy.config.json",
+    "start:server": "json-server --watch ./db.json"
   },
   "private": true,
   "dependencies": {
