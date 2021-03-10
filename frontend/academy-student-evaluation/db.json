@@ -1,9 +1,33 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+  "students": [
+    { "id": 1,
+      "name": "Jason",
+      "surname": "Kruger"
+    }
   ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+  "teachers": [
+    { "id": 1,
+      "name": "Bill",
+      "surname": "Gates",
+      "username": "billieg",
+      "password": "noneofyour"
+    }
   ],
-  "profile": { "name": "typicode" }
+  "evaluations": {
+    "id": 1,
+    "stream": "BE",
+    "studentId": 1,
+    "teacherId": 1,
+    "communication_Grade": 3,
+    "communication_comments": "Lorem ipsum dolar",
+    "is_extramile": false,
+    "is_extramile_comments": "Lorem ipsum",
+    "is_motivated": true,
+    "motivation_comments": "Lorem ipsum lorem",
+    "ability_to_learn_grade": 2,
+    "ability_to_learn_comments": "Lorem",
+    "overall_comments": "Lorem",
+    "created_at": 1578299002834,
+    "updated_at": 1495046754304
+  }
 }
