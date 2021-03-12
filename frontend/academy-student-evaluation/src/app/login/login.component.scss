@@ -1,0 +1,18 @@
+.card {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(212, 212, 212, 0.5);
+}
+
+.input-group-prepend span {
+  width: 50px;
+  background-color: #ffc312;
+  color: black;
+  border: 0;
+}
+
+input:focus {
+  outline: 0 0 0 0;
+  box-shadow: 0 0 0 0;
+}

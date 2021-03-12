@@ -1,0 +1,4 @@
+<ng-container *ngIf="teachers$ | async as teachers">
+  <app-teachers-info *ngFor="let teacher of teachers" [teacher]="teacher">
+  </app-teachers-info>
+</ng-container>

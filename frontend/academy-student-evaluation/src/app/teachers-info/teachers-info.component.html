@@ -1,0 +1,10 @@
+<div class="card my-2" *ngIf="evaluations$ | async as evaluations">
+  <div class="card-body">
+    <h5 class="card-title border-bottom border-bottom-ligth">{{ teacher.name }} {{ teacher.name }}
+      <span class="card-subtitle mb-2 text-muted float-right"><small>{{ teacher.username }}</small></span>
+    </h5>
+    <p class="card-text">Evaluations made: (<span>{{evaluations.length}}</span>)
+      <span><a [routerLink]="['/home/teachers', teacher.id]" class="card-link float-right">Details</a></span>
+    </p>
+  </div>
+</div>

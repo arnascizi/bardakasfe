@@ -1,29 +1,42 @@
 <div class="container border-bottom p-0">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a href="#" class="navbar-brand">Academy Student Evaluation</a>
-      <div class="collapse navbar-collapse">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a href="#" class="navbar-brand">Academy Student Evaluation</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarCollapse"
+      aria-controls="navBarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navBarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Select Stream
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">BE Stream</a>
+            <a class="dropdown-item" href="#">FE Stream</a>
+            <a class="dropdown-item" href="#">UX Stream</a>
+            <a class="dropdown-item" href="#">Testing Stream</a>
+          </div>
+        </li>
+        <li class="nav-link">
+          <a routerLink="/home/students" class="dropdown-item">Students</a>
+        </li>
+        <li class="nav-link">
+          <a routerLink="/home/teachers" class="dropdown-item">Teachers</a>
+        </li>
+      </ul>
+      <div>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Select Stream
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">BE Stream</a>
-              <a class="dropdown-item" href="#">FE Stream</a>
-              <a class="dropdown-item" href="#">UX Stream</a>
-              <a class="dropdown-item" href="#">Testing Stream</a>
+            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Teacher</a>
+            <div class="dropdown-menu">
+              <a routerLink="/login" class="dropdown-item">Login</a>
+              <a routerLink="/register" class="dropdown-item">Register</a>
             </div>
           </li>
         </ul>
       </div>
-      <div>Kon'nichiwa sensei</div>
-    </nav>
-  </div>
+    </div>
+  </nav>
+</div>
