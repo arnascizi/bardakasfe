@@ -2,7 +2,7 @@ package com.bardakas.backend.controller;
 
 import com.bardakas.backend.entity.Student;
 import com.bardakas.backend.exception.StudentNotFoundException;
-import com.bardakas.backend.service.StudentService;
+import com.bardakas.backend.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,17 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
 
-    private StudentService studentService;
+    private StudentServiceImpl studentService;
 
     @Autowired
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentServiceImpl studentService) {
         this.studentService = studentService;
     }
 
@@ -41,21 +40,17 @@ public class StudentController {
         try {
             studentService.delete(id);
             return ResponseEntity.ok().build();
-        } catch(StudentNotFoundException ex) {
+        } catch (StudentNotFoundException ex) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
     public ResponseEntity<Void> addStudent(@RequestBody Student student, UriComponentsBuilder builder) {
-        boolean success = studentService.add(student);
-        if(success) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(builder.path("/{id}").buildAndExpand(student.getId()).toUri());
-            return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+        studentService.add(student);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(builder.path("/{id}").buildAndExpand(student.getId()).toUri());
+        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
     @PutMapping
