@@ -1,7 +1,6 @@
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Teacher } from '../shared/teacher';
+import { Observable } from 'rxjs';
 import { Evaluation } from '../shared/evaluation';
 
 @Injectable({
@@ -16,7 +15,7 @@ export class EvaluationService {
   }
 
   getTeacherEvaluationsStream(stream: string): Observable<Evaluation[]> {
-    return this.httpClient.get<Evaluation[]>(`/api/evaluations?stream=${stream}`)
+    return this.httpClient.get<Evaluation[]>(`/api/evaluations?stream=${stream}`);
   }
 
   addEvaluation(evaluation: Evaluation): Observable<Evaluation> {

@@ -1,7 +1,7 @@
-export interface Teacher{
-    id: number;
-    name: string;
-    surname: string;
-    username: string;
-    password: string;
+export interface Teacher {
+  id: number;
+  name: string;
+  surname: string;
+  username: string;
+  password: string;
 }
