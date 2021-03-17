@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl {
 
     private StudentRepository studentRepository;
     private StudentValidator studentValidator;
@@ -22,45 +22,33 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository = studentRepository;
     }
 
-    @Override
     public List<Student> getAll() {
         return studentRepository.findAll();
     }
 
-    @Override
     public Student getById(long id) {
         return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
-    @Override
-    public boolean delete(long id) {
+    public void delete(long id) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
         studentRepository.deleteById(id);
-        return true;
     }
 
-    @Override
-    public boolean add(Student student) {
+    public void add(Student student) {
         Optional<Student> studentOptional = studentRepository.findById(student.getId());
         if(studentOptional.isPresent()) {
-            return false;
-        } else {
-            studentValidator.validate(student);
-            studentRepository.save(student);
-            return true;
+            throw new RuntimeException();
         }
+        studentValidator.validate(student);
+        studentRepository.save(student);
+
     }
 
-    @Override
-    public boolean update(Student student) {
+    public void update(Student student) {
         long id = student.getId();
-        Optional<Student> studentOptional = studentRepository.findById(id);
-        if(studentOptional.isPresent()) {
-            studentValidator.validate(student);
-            studentRepository.save(student);
-            return true;
-        } else {
-            throw new StudentNotFoundException(id);
-        }
+        Student optionalStudent = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
+        studentValidator.validate(student);
+        studentRepository.save(student);
     }
 }
