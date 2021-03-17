@@ -7,7 +7,7 @@ import { Teacher } from '../shared/teacher';
 })
 export class AuthService {
   //TODO: remove testTeacher after auth implementation
-  testTeacher = {
+  testTeacher: Teacher = {
     id: 456846,
     name: 'Marcia',
     surname: 'David',
