@@ -18,4 +18,8 @@ export class EvaluationService {
   getTeacherEvaluationsStream(stream: string): Observable<Evaluation[]> {
     return this.httpClient.get<Evaluation[]>(`/api/evaluations?stream=${stream}`)
   }
+
+  addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
+    return this.httpClient.post<Evaluation>('/api/evaluations', evaluation);
+  }
 }
