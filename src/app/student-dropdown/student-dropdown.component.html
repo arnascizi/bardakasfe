@@ -1,0 +1,18 @@
+<div class="d-flex flex-row dropdown-container">
+  <label class="p-2">Student:</label>
+  <select
+    class="custom-select mb-2 col-7 border-primary border-3"
+    (change)="onChange($event.target)"
+  >
+    <option disabled>Choose your option</option>
+    <option *ngFor="let student of students" [value]="student.id">
+      {{ student.name }} {{ student.surname }}
+    </option>
+  </select>
+</div>
+
+<app-student-dropdown-evaluations
+  *ngIf="selectedStudent"
+  [student]="selectedStudent"
+  [evaluationItems]="evaluationItems"
+></app-student-dropdown-evaluations>

@@ -1,0 +1,24 @@
+<div class="evaluation-container">
+  <a routerLink="../evaluation"> Create new evaluation for student </a>
+  <table class="table table-borderless table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Teacher</th>
+        <th scope="col">Stream</th>
+        <th scope="col">Overall grade</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody class="table-clickable">
+      <tr
+        *ngFor="let evaluationItem of evaluationItems"
+        (click)="onClick(evaluationItem.id)"
+      >
+        <td>{{ evaluationItem.fullTeacherName }}</td>
+        <td>{{ evaluationItem.stream }}</td>
+        <td>{{ evaluationItem.overallGrade }}</td>
+        <td>{{ evaluationItem.updatedAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

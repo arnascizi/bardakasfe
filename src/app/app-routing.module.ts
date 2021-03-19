@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { TeachersPageComponent } from './teachers-page/teachers-page.component';
 import { EvaluationFormComponent } from './evaluation-form/evaluation-form.component';
+import { StudentDropdownComponent } from './student-dropdown/student-dropdown.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/home' },
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'students', component: StudentDetailsComponent },
       { path: 'teachers', component: TeachersPageComponent },
       { path: 'teachers/:id', component: TeacherDetailsComponent },
+      { path: 'dropdown', component: StudentDropdownComponent },
     ],
   },
   { path: 'login', component: LoginComponent },
