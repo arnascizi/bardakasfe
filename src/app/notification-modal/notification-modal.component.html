@@ -1,0 +1,17 @@
+<section>
+    <div class = "modal-header {{headerClass}}">
+        <h4 class="modal-title">{{notification.title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>{{notification.message}}!</p>
+    </div>
+    <div class="modal-footer">
+        <button *ngIf='notification.cancelButtonName' type="button" class="btn btn-warning"
+            (click)="activeModal.dismiss()">{{notification.cancelButtonName}}</button>
+        <button *ngIf='notification.confirmButtonName' type="button" class="btn btn-success"
+            (click)="confirmedBack()">{{notification.confirmButtonName}}</button>
+    </div>
+</section>
