@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { StudentService } from '../services/student.service';
 import { Student } from '../shared/student';
 
