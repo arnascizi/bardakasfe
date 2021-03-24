@@ -1,0 +1,402 @@
+<div *ngIf="isSubmited" class="mt-3 text-success">
+  Evaluation form was submitted.
+</div>
+
+<div *ngIf="isInvalid" class="mt-3 text-danger">
+  Please check evaluation form values.
+</div>
+
+<form [formGroup]="evaluationForm" (submit)="submitForm()">
+  <div class="my-3">
+    <div
+      [hidden]="
+        evaluationForm.controls.studentId.valid ||
+        evaluationForm.controls.studentId.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.studentId.errors?.required">
+        Please select student.
+      </div>
+    </div>
+    <label for="student" class="mr-2">Student:</label>
+    <select
+      class="custom-select col-7 border-primary border-3"
+      formControlName="studentId"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.studentId.invalid &&
+          evaluationForm.controls.studentId.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option *ngFor="let student of students$ | async" [ngValue]="student.id">
+        {{ student.name }} {{ student.surname }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group col-7">
+    <label for="Teacher" class="mr-2"
+      >Teacher: {{ teacher.name }} {{ teacher.surname }}</label
+    >
+    <div
+      [hidden]="
+        evaluationForm.controls.teacherComment.valid ||
+        evaluationForm.controls.teacherComment.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.teacherComment.errors?.maxlength">
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control mb-4"
+      id="teacherComment"
+      type="text"
+      formControlName="teacherComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.teacherComment.invalid &&
+          evaluationForm.controls.teacherComment.dirty
+      }"
+      rows="3"
+    ></textarea>
+
+    <div
+      [hidden]="
+        evaluationForm.controls.stream.valid ||
+        evaluationForm.controls.stream.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.stream.errors?.required">
+        Please select stream value.
+      </div>
+    </div>
+    <label>Evaluation for :</label>
+    <select
+      class="custom-select mb-2 col-7 border-primary border-3"
+      formControlName="stream"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.stream.invalid &&
+          evaluationForm.controls.stream.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option *ngFor="let stream of allStreams" [ngValue]="stream">
+        {{ stream }}
+      </option>
+    </select>
+
+    <label for="communication" class="mt-3">Communication:</label>
+    <div
+      [hidden]="
+        evaluationForm.controls.communicationSelect.valid ||
+        evaluationForm.controls.communicationSelect.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.communicationSelect.errors?.required">
+        Please select communication option.
+      </div>
+    </div>
+    <select
+      class="custom-select border-primary border-3"
+      formControlName="communicationSelect"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.communicationSelect.invalid &&
+          evaluationForm.controls.communicationSelect.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option
+        *ngFor="let select of gradeSelectionOptions | keyvalue"
+        [ngValue]="+select.key + 1"
+      >
+        {{ select.value }}
+      </option>
+    </select>
+
+    <div
+      [hidden]="
+        evaluationForm.controls.communicationComment.valid ||
+        evaluationForm.controls.communicationComment.pristine
+      "
+      class="text-danger"
+    >
+      <div
+        *ngIf="evaluationForm.controls.communicationComment.errors?.maxlength"
+      >
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control mt-2"
+      id="communicationComment"
+      type="text"
+      formControlName="communicationComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.communicationComment.invalid &&
+          evaluationForm.controls.communicationComment.dirty
+      }"
+      rows="3"
+    ></textarea>
+
+    <label for="AbilityToLearn" class="mt-3">Ability to learn:</label>
+    <div
+      [hidden]="
+        evaluationForm.controls.abilityToLearnSelect.valid ||
+        evaluationForm.controls.abilityToLearnSelect.pristine
+      "
+      class="text-danger"
+    >
+      <div
+        *ngIf="evaluationForm.controls.abilityToLearnSelect.errors?.required"
+      >
+        Please select ability to learn option.
+      </div>
+    </div>
+    <select
+      class="custom-select border-primary border-3"
+      formControlName="abilityToLearnSelect"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.abilityToLearnSelect.invalid &&
+          evaluationForm.controls.abilityToLearnSelect.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option
+        *ngFor="let select of gradeSelectionOptions | keyvalue"
+        [ngValue]="+select.key + 1"
+      >
+        {{ select.value }}
+      </option>
+    </select>
+    <div
+      [hidden]="
+        evaluationForm.controls.abilityToLearnComment.valid ||
+        evaluationForm.controls.abilityToLearnComment.pristine
+      "
+      class="text-danger"
+    >
+      <div
+        *ngIf="evaluationForm.controls.abilityToLearnComment.errors?.maxlength"
+      >
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control mt-2"
+      id="abilityToLearnComment"
+      type="text"
+      formControlName="abilityToLearnComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.abilityToLearnComment.invalid &&
+          evaluationForm.controls.abilityToLearnComment.dirty
+      }"
+      rows="3"
+    ></textarea>
+
+    <label for="extraMile" class="mt-3">Extra mile:</label>
+    <div
+      [hidden]="
+        evaluationForm.controls.extraMileSelect.valid ||
+        evaluationForm.controls.extraMileSelect.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.extraMileSelect.errors?.required">
+        Please select extra mile option.
+      </div>
+    </div>
+    <select
+      class="custom-select border-primary border-3"
+      formControlName="extraMileSelect"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.extraMileSelect.invalid &&
+          evaluationForm.controls.extraMileSelect.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+    <div
+      [hidden]="
+        evaluationForm.controls.extraMileComment.valid ||
+        evaluationForm.controls.extraMileComment.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.extraMileComment.errors?.maxlength">
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control mt-2"
+      id="extraMileComment"
+      type="text"
+      formControlName="extraMileComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.extraMileComment.invalid &&
+          evaluationForm.controls.extraMileComment.dirty
+      }"
+      rows="3"
+    ></textarea>
+
+    <label for="motivation" class="mt-3">Motivation:</label>
+    <div
+      [hidden]="
+        evaluationForm.controls.motivationSelect.valid ||
+        evaluationForm.controls.motivationSelect.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.motivationSelect.errors?.required">
+        Please select motivation option.
+      </div>
+    </div>
+    <select
+      class="custom-select border-primary border-3"
+      formControlName="motivationSelect"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.motivationSelect.invalid &&
+          evaluationForm.controls.motivationSelect.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+    <div
+      [hidden]="
+        evaluationForm.controls.motivationComment.valid ||
+        evaluationForm.controls.motivationComment.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.motivationComment.errors?.maxlength">
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control mt-2"
+      id="motivationComment"
+      type="text"
+      formControlName="motivationComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.motivationComment.invalid &&
+          evaluationForm.controls.motivationComment.dirty
+      }"
+      rows="3"
+    ></textarea>
+
+    <label for="direction" class="mt-3">Direction:</label>
+    <div
+      [hidden]="
+        evaluationForm.controls.directionComment.valid ||
+        evaluationForm.controls.directionComment.pristine
+      "
+      class="text-danger"
+    >
+      <div *ngIf="evaluationForm.controls.directionComment.errors?.required">
+        Please fill up direction field.
+      </div>
+      <div *ngIf="evaluationForm.controls.directionComment.errors?.maxlength">
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control border-primary border-3"
+      id="directionComment"
+      type="text"
+      formControlName="directionComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.directionComment.invalid &&
+          evaluationForm.controls.directionComment.dirty
+      }"
+      rows="3"
+    ></textarea>
+
+    <label for="overallEvaluation" class="mt-3 control-label"
+      >Overall evaluation:</label
+    >
+    <div
+      [hidden]="
+        evaluationForm.controls.overallEvaluationSelect.valid ||
+        evaluationForm.controls.overallEvaluationSelect.pristine
+      "
+      class="text-danger"
+    >
+      <div
+        *ngIf="evaluationForm.controls.overallEvaluationSelect.errors?.required"
+      >
+        Please select extra mile option.
+      </div>
+    </div>
+    <select
+      class="custom-select border-primary border-3"
+      formControlName="overallEvaluationSelect"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.overallEvaluationSelect.invalid &&
+          evaluationForm.controls.overallEvaluationSelect.dirty
+      }"
+    >
+      <option value="" disabled>Choose your option</option>
+      <option
+        *ngFor="let select of overallEvaluationOptions | keyvalue"
+        [ngValue]="+select.key + 1"
+      >
+        {{ select.value }}
+      </option>
+    </select>
+    <div
+      [hidden]="
+        evaluationForm.controls.overallEvaluationComment.valid ||
+        evaluationForm.controls.overallEvaluationComment.pristine
+      "
+      class="text-danger"
+    >
+      <div
+        *ngIf="
+          evaluationForm.controls.overallEvaluationComment.errors?.required
+        "
+      >
+        Please fill up direction field.
+      </div>
+      <div
+        *ngIf="
+          evaluationForm.controls.overallEvaluationComment.errors?.maxlength
+        "
+      >
+        Too many characters.
+      </div>
+    </div>
+    <textarea
+      class="form-control control-label mt-2 border-primary border-3"
+      id="overallEvaluationComment"
+      type="text"
+      formControlName="overallEvaluationComment"
+      [ngClass]="{
+        'is-invalid':
+          evaluationForm.controls.overallEvaluationComment.invalid &&
+          evaluationForm.controls.overallEvaluationComment.dirty
+      }"
+      rows="4"
+    ></textarea>
+  </div>
+  <button class="btn btn-primary ml-5" type="submit">Submit</button>
+</form>

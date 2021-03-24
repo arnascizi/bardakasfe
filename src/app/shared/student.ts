@@ -1,3 +1,5 @@
-import { Person } from './person';
-export interface Student extends Person{
+export interface Student {
+  id: number;
+  name: string;
+  surname: string;
 }
