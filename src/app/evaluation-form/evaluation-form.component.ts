@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,15 +7,18 @@ import {
   FormControl,
 } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { combineLatest, concat, Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
+import { combineLatest, concat, EMPTY, Observable } from 'rxjs';
+import { catchError, map, take, tap } from 'rxjs/operators';
 import { Grades } from '../constants/grades.enum';
 import { OveralGrades } from '../constants/overall-grades.enum';
 import { Streams } from '../constants/streams.enum';
+import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 import { EvaluationService } from '../services/evaluation.service';
 import { StudentService } from '../services/student.service';
 import { TeacherService } from '../services/teacher.service';
+import { AlertType } from '../shared/alert';
 import { Evaluation } from '../shared/evaluation';
 import { Person } from '../shared/person';
 import { Student } from '../shared/student';
@@ -48,7 +52,9 @@ export class EvaluationFormComponent implements OnInit {
     private studentService: StudentService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private alertService: AlertService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -231,10 +237,16 @@ export class EvaluationFormComponent implements OnInit {
     this.evaluationService
       .addEvaluation(this.evaluationForm.value)
       .pipe(
-        take(1),
-        tap(() => (this.isSubmited = true))
+        take(1)
       )
-      .subscribe();
+      .subscribe(
+        res => {
+          this.toastrService.success("Evaluation updated!", "Success")
+        },
+        err => {
+          this.handleError(err);
+        }
+      );
   }
 
   private updateEditedEvaluationForm(): void {
@@ -242,9 +254,15 @@ export class EvaluationFormComponent implements OnInit {
       .updateEditedEvaluation(this.evaluationForm.value)
       .pipe(
         take(1),
-        tap(() => (this.isSubmited = true))
       )
-      .subscribe();
+      .subscribe(
+        res => {
+          this.toastrService.success("Evaluation updated!", "Success")
+        },
+        err => {
+          this.handleError(err);
+        }
+      );
   }
 
   makeEditable(): void {
@@ -254,6 +272,16 @@ export class EvaluationFormComponent implements OnInit {
     } else {
       this.isEditable = false;
       this.evaluationForm.disable();
+    }
+  }
+
+  private handleError(error: ErrorEvent | HttpErrorResponse) {
+    if (!(error.error instanceof ErrorEvent) && error.error.status === 422) {
+      if (error.error.message !== undefined) {
+        this.alertService.show(error.error.message, AlertType.Error);
+      } else {
+        this.alertService.show("Something went wrong", AlertType.Error);
+      }
     }
   }
 }

@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 import { AlertService } from '../services/alert.service';
+import { NotificationService } from '../services/notification.service';
 import { AlertType } from '../shared/alert';
 import { TeacherService } from './../services/teacher.service';
 
@@ -21,7 +23,8 @@ export class RegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private teacherService: TeacherService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -64,12 +67,13 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.router.navigate(['/login'], { relativeTo: this.route });
+              this.router.navigate(['/home'], { relativeTo: this.route });
+              this.notificationService.success("You are now ready to evaluate some students", `Welcome aboard, ${this.form.get('name')?.value}!`);
         },
       });
   }
 
-  handleError(error: any) {
+  handleError(error: ErrorEvent | HttpErrorResponse) {
     if (!(error.error instanceof ErrorEvent)) {
       if (error.error.message !== undefined) {
         this.alertService.show(error.error.message, AlertType.Error);

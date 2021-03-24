@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {

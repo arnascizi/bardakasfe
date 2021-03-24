@@ -10,10 +10,10 @@ export class NotificationService {
 
   constructor(private modalService: NgbModal) { }
 
-  success(message: string) {
+  success(message: string, title: string) {
     const modalRef = this.modalService.open(NotificationModalComponent, { centered: true });
     modalRef.componentInstance.notification = ({
-      title: 'Success!',
+      title: title,
       message: message,
       type: NotificationType.Success,
       showCancelButton: true,
@@ -22,10 +22,10 @@ export class NotificationService {
     })
   }
 
-  error(message: string) {
+  error(message: string, title: string) {
     const modalRef = this.modalService.open(NotificationModalComponent, { centered: true });
     modalRef.componentInstance.notification = ({
-      title: 'Error!',
+      title: title,
       message: message,
       type: NotificationType.Error,
       showCancelButton: true,
