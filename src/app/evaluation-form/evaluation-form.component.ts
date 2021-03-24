@@ -130,45 +130,45 @@ export class EvaluationFormComponent implements OnInit {
           updateOn: 'blur',
         },
       ],
-      communication_Grade: [
+      communicationGrade: [
         evaluation?.communicationGrade || '',
         [Validators.required],
       ],
-      communication_comments: [
+      communicationComment: [
         evaluation?.communicationComment || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      abilityToLearnSelect: [
+      abilityToLearnGrade: [
         evaluation?.abilityToLearnGrade || '',
         [Validators.required],
       ],
-      abilityToLearnComment: [
-        evaluation?.communicationComment || null,
+      abilityToLearnComments: [
+        evaluation?.abilityToLearnComments || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      is_extramile: [evaluation?.isExtraMile || '', [Validators.required]],
-      is_extramile_comments: [
+      isExtraMile: [evaluation?.isExtraMile || '', [Validators.required]],
+      extraMileComments: [
         evaluation?.extraMileComments || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      is_motivated: [evaluation?.isMotivated || '', [Validators.required]],
-      motivation_comments: [
+      isMotivated: [evaluation?.isMotivated || '', [Validators.required]],
+      motivationComments: [
         evaluation?.motivationComments || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      directionComment: [
+      directionComments: [
         evaluation?.directionComments || '',
         {
           validators: [
@@ -178,13 +178,13 @@ export class EvaluationFormComponent implements OnInit {
           updateOn: 'blur',
         },
       ],
-      overallEvaluationSelect: [
+      overallEvaluation: [
         evaluation?.overallEvaluation || '',
         {
           validators: [Validators.required],
         },
       ],
-      overall_comments: [
+      overallComments: [
         evaluation?.overallComments || '',
         {
           validators: [
