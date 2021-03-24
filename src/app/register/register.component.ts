@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { catchError, first } from 'rxjs/operators';
+import { AlertService } from '../services/alert.service';
+import { AlertType } from '../shared/alert';
 import { TeacherService } from './../services/teacher.service';
 
 @Component({
@@ -17,7 +20,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -37,26 +41,42 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-// @ts-ignore
   get formControls(): any {
     return this.form.controls;
   }
-// @ts-ignore
-  onSubmit(): void {
-    this.submitted = true;
 
+  onSubmit(): void {
+    this.alertService.close();
+    this.submitted = true;
     if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
     this.teacherService.addNewTeacher(this.form.value)
-      .pipe(first())
+      .pipe(
+        first(),
+        catchError(err => {
+          this.loading = false;
+          this.handleError(err);
+          return EMPTY;
+        })
+      )
       .subscribe({
         next: () => {
           this.router.navigate(['/login'], { relativeTo: this.route });
         },
       });
+  }
+
+  handleError(error: any) {
+    if (!(error.error instanceof ErrorEvent)) {
+      if (error.error.message !== undefined) {
+        this.alertService.show(error.error.message, AlertType.Error);
+      } else {
+        this.alertService.show("Something went wrong", AlertType.Error);
+      }
+    }
   }
 
 }
