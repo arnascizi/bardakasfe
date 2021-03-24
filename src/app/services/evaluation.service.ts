@@ -20,7 +20,7 @@ export class EvaluationService {
   }
 
   getEvaluationById(id: string): Observable<Evaluation> {
-    return this.httpClient.get<Evaluation>(`api/evaluations/${id}`);
+    return this.httpClient.get<Evaluation>(`/api/evaluations/${id}`);
   }
 
   addEvaluation(evaluation: Evaluation): Observable<Evaluation> {
