@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { take, tap } from 'rxjs/operators';
 import { EvaluationService } from '../services/evaluation.service';
 import { Teacher } from '../shared/teacher';

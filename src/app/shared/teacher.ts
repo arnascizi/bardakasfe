@@ -5,4 +5,5 @@ export interface Teacher extends Person{
     surname: string;
     username: string;
     password: string;
+    isTeacher: boolean;
 }

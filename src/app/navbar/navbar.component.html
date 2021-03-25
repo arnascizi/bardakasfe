@@ -1,29 +1,28 @@
 <div *ngIf="visible" class="container border-bottom p-0">
   <nav class="navbar navbar-expand-lg navbar-light background">
-    <a href="#" class="navbar-brand mt-1"><h4>Academy Students Evaluations</h4></a>
+    <a routerLink="/overview" class="navbar-brand mt-1"><h4>Academy Students Evaluations</h4></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarCollapse"
-      aria-controls="navBarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      aria-controls="navBarCollapse" aria-expanded="false" aria-label="Toggle navigation" >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navBarCollapse">
+    <div class="collapse navbar-collapse" id="navBarCollapse" *ngIf="user$ | async as user">
       <ul class="navbar-nav mr-auto">
         <li class="nav-link">
           <a routerLink="/overview" class="dropdown-item nav-text-size">Overview</a>
         </li>
-        <li class="nav-link">
+        <li class="nav-link" *ngIf="user.isTeacher">
           <a routerLink="/students" class="dropdown-item nav-text-size">Students</a>
         </li>
-        <li class="nav-link">
+        <li class="nav-link" *ngIf="user.isTeacher">
           <a routerLink="/teachers" class="dropdown-item nav-text-size">Teachers</a>
         </li>
       </ul>
       <div>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle nav-text-size" role="button" data-toggle="dropdown">Teacher</a>
+            <a href="#" class="nav-link dropdown-toggle nav-text-size" role="button" data-toggle="dropdown">Hello {{ user.name }}</a>
             <div class="dropdown-menu">
-              <a routerLink="/login" class="dropdown-item nav-text-size">Login</a>
-              <a routerLink="/register" class="dropdown-item nav-text-size">Register</a>
+              <button class="dropdown-item nav-text-size" (click)="onLogout()">Logout</button>
             </div>
           </li>
         </ul>
