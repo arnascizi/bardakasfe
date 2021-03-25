@@ -1,5 +1,5 @@
-<div class="evaluation-container my-3 mx-4">
-  <button class="btn button-main mb-2" (click)="onClickButton()">
+<div class="evaluation-container my-3 mx-4" *ngIf="currentUser$ | async as user">
+  <button class="btn button-main mb-2" (click)="onClickButton()" *ngIf="user.isTeacher">
     Create new evaluation for student
   </button>
   <table
@@ -17,10 +17,7 @@
       </tr>
     </thead>
     <tbody class="table-clickable">
-      <tr
-        *ngFor="let evaluationItem of evaluationItems"
-        (click)="onClickRow(evaluationItem.id)"
-      >
+      <tr *ngFor="let evaluationItem of evaluationItems" (click)="onClickRow(evaluationItem.id)">
         <td>{{ evaluationItem.fullName }}</td>
         <td>{{ evaluationItem.stream }}</td>
         <td>{{ evaluationItem.overallGrade }}</td>

@@ -1,7 +1,8 @@
+import { AlertType } from './../shared/alert';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { EMPTY, Observable, throwError } from "rxjs";
-import { catchError, finalize } from "rxjs/operators";
+import { EMPTY, Observable } from "rxjs";
+import { catchError } from "rxjs/operators";
 import { NotificationService } from "../services/notification.service";
 
 @Injectable()

@@ -7,7 +7,7 @@ import { catchError, first } from 'rxjs/operators';
 import { AlertService } from '../services/alert.service';
 import { NotificationService } from '../services/notification.service';
 import { AlertType } from '../shared/alert';
-import { TeacherService } from './../services/teacher.service';
+import { AuthService } from './../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,11 +18,12 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
+  isATeacher: boolean = false;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private teacherService: TeacherService,
+    private authService: AuthService,
     private alertService: AlertService,
     private notificationService: NotificationService
   ) { }
@@ -40,6 +41,7 @@ export class RegisterComponent implements OnInit {
         ],
         updateOn: 'blur'
       }],
+      isTeacher: this.isATeacher
     }
     );
   }
@@ -52,11 +54,12 @@ export class RegisterComponent implements OnInit {
     this.alertService.close();
     this.submitted = true;
     if (this.form.invalid) {
+      console.log(this.form.value);
       return;
     }
 
     this.loading = true;
-    this.teacherService.addNewTeacher(this.form.value)
+    this.authService.register(this.form.value)
       .pipe(
         first(),
         catchError(err => {
@@ -67,13 +70,13 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-              this.router.navigate(['/home'], { relativeTo: this.route });
-              this.notificationService.success("You are now ready to evaluate some students", `Welcome aboard, ${this.form.get('name')?.value}!`);
+          this.router.navigate(['/'], { relativeTo: this.route });
+          this.notificationService.success("You are now ready to evaluate some students", `Welcome aboard, ${this.form.get('name')?.value}!`);
         },
       });
   }
 
-  handleError(error: ErrorEvent | HttpErrorResponse) {
+  private handleError(error: ErrorEvent | HttpErrorResponse): void {
     if (!(error.error instanceof ErrorEvent)) {
       if (error.error.message !== undefined) {
         this.alertService.show(error.error.message, AlertType.Error);

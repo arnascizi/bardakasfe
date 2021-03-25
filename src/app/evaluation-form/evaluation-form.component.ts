@@ -1,11 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { KeyValue } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
+  FormBuilder, FormControl, FormGroup,
+  Validators
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

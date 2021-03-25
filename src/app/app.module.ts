@@ -14,14 +14,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { AlertComponent } from './alert/alert.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
 import { StudentDropdownComponent } from './student-dropdown/student-dropdown.component';
 import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluations/student-dropdown-evaluations.component';
 import { OverviewComponent } from './overview/overview.component';
 import { StudentsPageComponent } from './students-page/students-page.component';
 import { StudentsInfoComponent } from './students-info/students-info.component';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [

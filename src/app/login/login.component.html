@@ -34,13 +34,18 @@
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Login
             </button>
-            <a routerLink="/" class="btn btn-link float-right">Cancel</a>
+            <a href="#" class="btn btn-link float-right text-primary"><span class="text-muted">
+                Forgot your
+              </span>
+              password
+              <span class="text-muted">?</span>
+            </a>
           </div>
         </form>
       </div>
       <div class="card-footer">
         <div class="d-flex justify-content-center">
-          Don't have an account? <a class="ml-2" routerLink="/register">Register</a>
+          Don't have an account? <a class="ml-2 text-primary" routerLink="/register">Register</a>
         </div>
       </div>
     </div>
