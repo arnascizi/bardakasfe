@@ -1,5 +1,5 @@
 export enum Grades {
-  'Good' = '1. Good',
-  'Avarage' = '2. Avarage',
-  'Weak' = '3. Weak',
+  GOOD = '1. Good',
+  AVERAGE = '2. Average',
+  WEAK = '3. Weak',
 }

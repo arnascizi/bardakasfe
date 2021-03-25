@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -33,8 +34,6 @@ export class EvaluationFormComponent implements OnInit {
   gradeSelectionOptions: object;
   overallEvaluationOptions: object;
   isSubmited: boolean;
-  isEvaluationFormNew: boolean;
-  isEditable: boolean;
 
   allStreams: string[];
 
@@ -57,6 +56,13 @@ export class EvaluationFormComponent implements OnInit {
     private toastrService: ToastrService
   ) {}
 
+  orderOriginal = (
+    a: KeyValue<string, OveralGrades>,
+    b: KeyValue<string, OveralGrades>
+  ): number => {
+    return 0;
+  };
+
   ngOnInit(): void {
     this.students$ = this.studentService.getAllStudents();
 
@@ -75,7 +81,6 @@ export class EvaluationFormComponent implements OnInit {
             this.prefillEditForm(id);
           } else {
             this.teacher = currentUser;
-            this.isEvaluationFormNew = true;
             this.initForm();
           }
         })
@@ -136,45 +141,45 @@ export class EvaluationFormComponent implements OnInit {
           updateOn: 'blur',
         },
       ],
-      communication_Grade: [
+      communicationGrade: [
         evaluation?.communicationGrade || '',
         [Validators.required],
       ],
-      communication_comments: [
+      communicationComment: [
         evaluation?.communicationComment || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      abilityToLearnSelect: [
+      abilityToLearnGrade: [
         evaluation?.abilityToLearnGrade || '',
         [Validators.required],
       ],
-      abilityToLearnComment: [
-        evaluation?.communicationComment || null,
+      abilityToLearnComments: [
+        evaluation?.abilityToLearnComments || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      is_extramile: [evaluation?.isExtraMile || '', [Validators.required]],
-      is_extramile_comments: [
+      isExtraMile: [evaluation?.isExtraMile ?? '', [Validators.required]],
+      extraMileComments: [
         evaluation?.extraMileComments || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      is_motivated: [evaluation?.isMotivated || '', [Validators.required]],
-      motivation_comments: [
+      isMotivated: [evaluation?.isMotivated ?? '', [Validators.required]],
+      motivationComments: [
         evaluation?.motivationComments || null,
         {
           validators: [Validators.maxLength(this.maxCharsForText)],
           updateOn: 'blur',
         },
       ],
-      directionComment: [
+      directionComments: [
         evaluation?.directionComments || '',
         {
           validators: [
@@ -184,13 +189,13 @@ export class EvaluationFormComponent implements OnInit {
           updateOn: 'blur',
         },
       ],
-      overallEvaluationSelect: [
+      overallEvaluation: [
         evaluation?.overallEvaluation || '',
         {
           validators: [Validators.required],
         },
       ],
-      overall_comments: [
+      overallComments: [
         evaluation?.overallComments || '',
         {
           validators: [
@@ -221,10 +226,10 @@ export class EvaluationFormComponent implements OnInit {
 
   submitForm(): void {
     if (this.evaluationForm.valid) {
-      if (this.isEvaluationFormNew) {
-        this.addEvaluationForm();
-      } else {
+      if (this.loggedUser) {
         this.updateEditedEvaluationForm();
+      } else {
+        this.addEvaluationForm();
       }
     } else {
       this.validateAllFormFields(this.evaluationForm);
@@ -233,7 +238,6 @@ export class EvaluationFormComponent implements OnInit {
   }
 
   private addEvaluationForm(): void {
-    this.isEvaluationFormNew = false;
     this.evaluationService
       .addEvaluation(this.evaluationForm.value)
       .pipe(
@@ -264,7 +268,7 @@ export class EvaluationFormComponent implements OnInit {
         }
       );
   }
-
+           
   makeEditable(): void {
     if (!this.isEditable) {
       this.isEditable = true;

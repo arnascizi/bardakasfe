@@ -109,10 +109,11 @@
     >
       <option value="" disabled>Choose your option</option>
       <option
-        *ngFor="let select of gradeSelectionOptions | keyvalue"
-        [ngValue]="select.key"
+        *ngFor="let option of gradeSelectionOptions| keyvalue: orderOriginal
+        "
+        [ngValue]="option.key"
       >
-        {{ select.value }}
+        {{ option.value }}
       </option>
     </select>
 
@@ -164,10 +165,11 @@
     >
       <option value="" disabled>Choose your option</option>
       <option
-        *ngFor="let select of gradeSelectionOptions | keyvalue"
-        [ngValue]="select.key"
+        *ngFor="let option of gradeSelectionOptions | keyvalue: orderOriginal
+        "
+        [ngValue]="option.key"
       >
-        {{ select.value }}
+        {{ option.value }}
       </option>
     </select>
     <div
@@ -329,7 +331,7 @@
       class="text-danger"
     >
       <div *ngIf="evaluationForm.controls.overallEvaluation.errors?.required">
-        Please select extra mile option.
+        Please select overal option.
       </div>
     </div>
     <select
@@ -343,10 +345,12 @@
     >
       <option value="" disabled>Choose your option</option>
       <option
-        *ngFor="let select of overallEvaluationOptions | keyvalue"
-        [ngValue]="select.key"
+        *ngFor="
+          let option of overallEvaluationOptions | keyvalue: orderOriginal
+        "
+        [ngValue]="option.key"
       >
-        {{ select.value }}
+        {{ option.value }}
       </option>
     </select>
     <div
@@ -375,28 +379,25 @@
       rows="4"
     ></textarea>
   </div>
-  <div
-    class="col-7"
-    *ngIf="isEvaluationFormNew || teacher.id === loggedUser.id"
-  >
+  <div class="col-7" *ngIf="!loggedUser || teacher.id === loggedUser?.id">
     <button
       class="btn btn-primary mr-3 float-right"
       type="submit"
-      *ngIf="isEvaluationFormNew || isEditable"
+      *ngIf="!loggedUser || evaluationForm.enabled"
     >
       Submit
     </button>
     <button
       class="btn btn-secondary float-right"
-      *ngIf="!isEditable && !isEvaluationFormNew"
-      (click)="makeEditable()"
+      *ngIf="evaluationForm.disabled && loggedUser"
+      (click)="evaluationForm.enable()"
     >
       Edit
     </button>
     <button
       class="btn btn-secondary float-right mr-2"
-      *ngIf="isEditable"
-      (click)="makeEditable()"
+      *ngIf="evaluationForm.enabled && loggedUser"
+      (click)="evaluationForm.disable()"
     >
       Cancel
     </button>
