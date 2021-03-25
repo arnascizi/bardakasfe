@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import { EMPTY, Observable, throwError } from "rxjs";
 import { catchError, finalize } from "rxjs/operators";
 import { NotificationService } from "../services/notification.service";
 
@@ -15,17 +15,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     return next.handle(request)
       .pipe(
-        catchError((error: any) => {
+        catchError((error: ErrorEvent | HttpErrorResponse) => {
           let errorMsg = '';
-          if (!(error.error instanceof ErrorEvent) && error.error.status == 500) {
+          if (error.error.status !== 422) {
             if (error.error.message !== undefined) {
               errorMsg = error.error.message;
             } else {
-              errorMsg = "Something went wrong :/";
+              errorMsg = "Something went wrong, please try again later.";
             }
-            this.notificationService.error(errorMsg);
+            this.notificationService.error(errorMsg, "Uh oh!");
           }
-          return throwError(error);
+          return EMPTY;
         })
       )
   }
