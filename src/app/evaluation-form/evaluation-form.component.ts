@@ -268,16 +268,6 @@ export class EvaluationFormComponent implements OnInit {
         }
       );
   }
-           
-  makeEditable(): void {
-    if (!this.isEditable) {
-      this.isEditable = true;
-      this.evaluationForm.enable();
-    } else {
-      this.isEditable = false;
-      this.evaluationForm.disable();
-    }
-  }
 
   private handleError(error: ErrorEvent | HttpErrorResponse) {
     if (!(error.error instanceof ErrorEvent) && error.error.status === 422) {
