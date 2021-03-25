@@ -20,6 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StudentDropdownComponent } from './student-dropdown/student-dropdown.component';
+import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluations/student-dropdown-evaluations.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TeachersInfoComponent,
     NotificationModalComponent,
     AlertComponent,
+    StudentDropdownComponent,
+    StudentDropdownEvaluationsComponent,
     EvaluationFormComponent,
   ],
   imports: [
