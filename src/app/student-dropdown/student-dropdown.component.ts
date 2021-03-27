@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { take, tap } from 'rxjs/operators';
-import { OveralGrades } from '../constants/overall-grades.enum';
 import { EvaluationService } from '../services/evaluation.service';
 import { StudentService } from '../services/student.service';
 import { TeacherService } from '../services/teacher.service';
@@ -19,6 +18,7 @@ export class StudentDropdownComponent implements OnInit {
   @Input()
   selectedStudent: Student;
 
+  defaultId: number;
   students: Student[];
   teachers: Teacher[];
   evaluationItems: EvaluationDropdownItem[];
@@ -26,11 +26,17 @@ export class StudentDropdownComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private evaluationService: EvaluationService,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.setupTeachers();
+    this.route.params.pipe(
+      take(1)
+    ).subscribe(
+      res => this.defaultId = res['id']
+    )
     this.setupDefaultStudent();
   }
 
@@ -49,21 +55,19 @@ export class StudentDropdownComponent implements OnInit {
   }
 
   private setupDefaultStudent(): void {
-    this.studentService
+      this.studentService
       .getAllStudents()
       .pipe(
         take(1),
         tap((students) => {
           if (students.length < 1) return;
-
           this.students = students;
-
-          this.selectedStudent = students[0];
-
+          this.selectedStudent = students.find(student => student.id == this.defaultId) || students[0];
           this.setupEvaluations();
         })
       )
       .subscribe();
+
   }
 
   private setupEvaluations(): void {

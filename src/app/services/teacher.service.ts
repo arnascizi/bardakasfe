@@ -35,4 +35,3 @@ export class TeacherService {
     return this.httpClient.get<Evaluation[]>(`/api/evaluations?teacherId=${id}`);
   }
 }
-

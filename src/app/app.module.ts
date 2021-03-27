@@ -1,5 +1,4 @@
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EvaluationFormComponent } from './evaluation-form/evaluation-form.component';
@@ -22,6 +21,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StudentDropdownComponent } from './student-dropdown/student-dropdown.component';
 import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluations/student-dropdown-evaluations.component';
+import { OverviewComponent } from './overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,6 @@ import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluati
     LoginComponent,
     RegisterComponent,
     SidebarComponent,
-    HomeComponent,
     StudentDetailsComponent,
     TeacherDetailsComponent,
     TeachersPageComponent,
@@ -40,6 +39,7 @@ import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluati
     StudentDropdownComponent,
     StudentDropdownEvaluationsComponent,
     EvaluationFormComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,

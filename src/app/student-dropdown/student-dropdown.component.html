@@ -5,7 +5,8 @@
     (change)="onChange($event.target)"
   >
     <option disabled>Choose your option</option>
-    <option *ngFor="let student of students" [value]="student.id">
+    <option *ngFor="let student of students" [value]="student.id"
+    [selected] = "student.id == selectedStudent.id">
       {{ student.name }} {{ student.surname }}
     </option>
   </select>

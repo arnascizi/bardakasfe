@@ -1,0 +1,29 @@
+<div class = "dropdown-section">
+    <label class="p-2">Sort by:</label>
+  <select
+    (change)="onChange($event.target)"
+    class="custom-select mb-2 col-7 border-primary border-3">
+    <option disabled>Choose your option</option>
+    <option *ngFor = "let stream of streams;">{{stream}}</option>
+  </select>
+</div>
+<table class="table table-borderless table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Student</th>
+        <th *ngFor = "let stream of streams" scope="col">{{stream}}</th>
+      </tr>
+    </thead>
+    <tbody class="table-clickable">
+      <tr
+        *ngFor="let overviewItem of overviewItems$ | async"
+        (click)="goToStudentDropdown(overviewItem.id)"
+      >
+        <td>{{ overviewItem.fullStudentName }}</td>
+        <td>{{ overviewItem.beOverallGrade }}</td>
+        <td>{{ overviewItem.feOverallGrade }}</td>
+        <td>{{ overviewItem.uxOverallGrade }}</td>
+        <td>{{ overviewItem.qaOverallGrade }}</td>
+      </tr>
+    </tbody>
+  </table>
