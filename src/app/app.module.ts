@@ -3,7 +3,6 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EvaluationFormComponent } from './evaluation-form/evaluation-form.component';
 import { RegisterComponent } from './register/register.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
 import { TeachersPageComponent } from './teachers-page/teachers-page.component';
@@ -29,7 +28,6 @@ import { OverviewComponent } from './overview/overview.component';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    SidebarComponent,
     StudentDetailsComponent,
     TeacherDetailsComponent,
     TeachersPageComponent,

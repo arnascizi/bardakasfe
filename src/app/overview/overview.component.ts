@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { OveralGrades } from '../constants/overall-grades.enum';
 import { Streams } from '../constants/streams.enum';
@@ -29,20 +29,14 @@ export class OverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.studentService.getAllStudents().pipe(
+    forkJoin([this.studentService.getAllStudents(), this.evaluationService.getAllEvaluations()]).pipe(
       take(1),
-      tap((students) => {
-        this.students = students;
+      tap((results) => {
+        this.students = results[0];
+        this.evaluations = results[1];
+        this.initOverviewItems();
       })
     ).subscribe();
-    this.evaluationService.getAllEvaluations().pipe(
-      take(1),
-      tap((evaluations) => {
-        this.evaluations = evaluations;
-      })
-    ).subscribe({
-      next: () => { this.initOverviewItems(); }
-    });
   }
 
   initOverviewItems() {

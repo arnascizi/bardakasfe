@@ -1,10 +1,21 @@
-<div class="card my-2" *ngIf="evaluations$ | async as evaluations">
+<div class="card my-3 ml-4">
   <div class="card-body">
-    <h5 class="card-title border-bottom border-bottom-ligth">{{ teacher.name }} {{ teacher.name }}
-      <span class="card-subtitle mb-2 text-muted float-right"><small>{{ teacher.username }}</small></span>
+    <h5 class="card-title border-bottom border-bottom-ligth pb-1">
+      {{ teacher.name }} {{ teacher.surname }}
+      <span class="card-subtitle mb-2 text-muted float-right"
+        ><small class="mr-3">{{ teacher.username }}</small>
+      </span>
     </h5>
-    <p class="card-text">Evaluations made: (<span>{{evaluations.length}}</span>)
-      <span><a [routerLink]="['/teachers', teacher.id]" class="card-link float-right">Details</a></span>
+    <p class="card-text">
+      Evaluations made: (<span>{{ evaluationListCount }}</span
+      >)
+      <span
+        ><a
+          [routerLink]="['/teachers', teacher.id]"
+          class="card-link float-right mr-3"
+          >Details</a
+        ></span
+      >
     </p>
   </div>
 </div>

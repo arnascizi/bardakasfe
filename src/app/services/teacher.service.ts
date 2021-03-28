@@ -1,15 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Evaluation } from '../shared/evaluation';
 import { Teacher } from './../shared/teacher';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeacherService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   addNewTeacher(teacher: Teacher): Observable<Teacher> {
     return this.httpClient.post<Teacher>(`/api/teachers`, teacher);
@@ -29,9 +27,5 @@ export class TeacherService {
 
   deleteTeacher(id: number): Observable<Teacher> {
     return this.httpClient.delete<Teacher>(`/api/teachers/${id}`);
-  }
-
-  getTeachersPostedEvaluations(id: number): Observable<Evaluation[]> {
-    return this.httpClient.get<Evaluation[]>(`/api/evaluations?teacherId=${id}`);
   }
 }

@@ -1,3 +1,4 @@
+<h4 class="mt-2">Teachers administration</h4>
 <ng-container *ngIf="teachers$ | async as teachers">
   <app-teachers-info *ngFor="let teacher of teachers" [teacher]="teacher">
   </app-teachers-info>

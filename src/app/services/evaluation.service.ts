@@ -25,7 +25,9 @@ export class EvaluationService {
   }
 
   getEvaluationsByStudentId(studentId: string): Observable<Evaluation[]> {
-    return this.httpClient.get<Evaluation[]>(`/api/evaluations/student/${studentId}`)
+    return this.httpClient.get<Evaluation[]>(
+      `/api/evaluations/student/${studentId}`
+    );
   }
 
   getEvaluationsByStream(stream: Streams): Observable<Evaluation[]> {
@@ -38,5 +40,8 @@ export class EvaluationService {
 
   updateEditedEvaluation(evaluation: Evaluation): Observable<Evaluation> {
     return this.httpClient.put<Evaluation>('/api/evaluations', evaluation);
+  }
+  getEvaluationsByTeacherId(id: string): Observable<Evaluation[]> {
+    return this.httpClient.get<Evaluation[]>(`/api/evaluations/teacher/${id}`);
   }
 }

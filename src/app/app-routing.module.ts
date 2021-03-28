@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'teachers/:id', component: TeacherDetailsComponent },
   { path: 'evaluate', component: StudentDropdownComponent },
   { path: 'evaluate/:id', component: StudentDropdownComponent },
-  { path: 'overview', component: OverviewComponent },
+  { path: 'overview', component: OverviewComponent }
 ];
 
 @NgModule({
