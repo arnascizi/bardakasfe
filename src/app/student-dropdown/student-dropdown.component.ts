@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { take, tap } from 'rxjs/operators';
-import { OveralGrades } from '../constants/overall-grades.enum';
+import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
 import { EvaluationService } from '../services/evaluation.service';
 import { StudentService } from '../services/student.service';
 import { TeacherService } from '../services/teacher.service';
@@ -113,7 +113,7 @@ export class StudentDropdownComponent implements OnInit {
       stream: stream,
       fullName: fullTeacherName,
       updatedAt: date,
-      overallGrade: OveralGrades.getOverAllGradeEnumString(overallGrade),
+      overallGrade: OveralGradesEnumFunctions.getOverAllGradeEnumString(overallGrade),
     };
 
     return evaluationItem;

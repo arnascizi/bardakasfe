@@ -5,7 +5,7 @@ export enum OveralGrades {
   VERY_GOOD = '4-5 very good',
 }
 
-export namespace OveralGrades {
+export namespace OveralGradesEnumFunctions {
   export function getOverAllGradeEnumString(overallGrade: string): string {
     switch (overallGrade) {
       case 'NOT_RECOMMENDED': {

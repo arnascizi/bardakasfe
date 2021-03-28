@@ -7,7 +7,7 @@ import { Evaluation } from '../shared/evaluation';
 import { StudentService } from '../services/student.service';
 import { Person } from '../shared/person';
 import { EvaluationTableItem } from '../shared/evaluation-table-item';
-import { OveralGrades } from '../constants/overall-grades.enum';
+import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
 
 @Component({
   selector: 'app-teacher-details',
@@ -106,7 +106,7 @@ export class TeacherDetailsComponent implements OnInit {
           .filter((val) => val.id === evaluation.studentId)
           .map((ele) => ele.fullName)}`,
         updatedAt: evaluation.updatedAt || 0,
-        overallGrade: OveralGrades.getOverAllGradeEnumString(
+        overallGrade: OveralGradesEnumFunctions.getOverAllGradeEnumString(
           evaluation.overallEvaluation
         ),
       })
