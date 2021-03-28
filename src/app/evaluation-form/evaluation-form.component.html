@@ -1,6 +1,9 @@
 <alert></alert>
 <div class="mt-3 ml-3">
-  <h4>Student evalution form</h4>
+  <h4 *ngIf="!student">Student evaluation form</h4>
+  <h4 *ngIf="student">
+    Evaluation form for <strong>{{ student.fullName }}</strong>
+  </h4>
   <form
     *ngIf="evaluationForm && teacher"
     class="ml-3"
@@ -19,24 +22,26 @@
           Please select student.
         </div>
       </div>
-      <label for="student" class="mr-2">Student:</label>
-      <select
-        class="custom-select col-7 border-primary border-3"
-        formControlName="studentId"
-        [ngClass]="{
-          'is-invalid':
-            evaluationForm.controls.studentId.invalid &&
-            evaluationForm.controls.studentId.dirty
-        }"
-      >
-        <option value="" disabled>Choose your option</option>
-        <option
-          *ngFor="let student of students$ | async"
-          [ngValue]="student.id"
+      <div class="container" *ngIf="!student">
+        <label for="student" class="mr-2 row">Student: </label>
+        <select
+          class="custom-select col-7 border-primary border-3"
+          formControlName="studentId"
+          [ngClass]="{
+            'is-invalid':
+              evaluationForm.controls.studentId.invalid &&
+              evaluationForm.controls.studentId.dirty
+          }"
         >
-          {{ student.name }} {{ student.surname }}
-        </option>
-      </select>
+          <option value="" disabled>Choose your option</option>
+          <option
+            *ngFor="let student of students$ | async"
+            [ngValue]="student.id"
+          >
+            {{ student.name }} {{ student.surname }}
+          </option>
+        </select>
+      </div>
     </div>
 
     <div class="form-group col-7">
@@ -299,19 +304,6 @@
           Please select motivation option.
         </div>
       </div>
-      <!-- <select
-        class="custom-select border-primary border-3"
-        formControlName="isMotivated"
-        [ngClass]="{
-          'is-invalid':
-            evaluationForm.controls.isMotivated.invalid &&
-            evaluationForm.controls.isMotivated.dirty
-        }"
-      >
-        <option value="" disabled>Choose your option</option>
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select> -->
 
       <div class="form-check ml-3">
         <input
@@ -462,7 +454,7 @@
     </div>
     <div class="col-7" *ngIf="!loggedUser || teacher.id === loggedUser?.id">
       <button
-        class="btn btn-primary mr-3 float-right"
+        class="btn btn-warning mr-3 float-right"
         type="submit"
         *ngIf="!loggedUser || evaluationForm.enabled"
       >

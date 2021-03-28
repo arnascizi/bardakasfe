@@ -1,0 +1,86 @@
+<div class="card my-2">
+  <div class="card-body">
+    <h5 class="card-title border-bottom border-bottom-ligth">
+      {{ student.name }} {{ student.surname }}
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              *ngIf="student.evaluationIdQA"
+              [routerLink]="['/evaluation', student.evaluationIdQA]"
+              Class="text-success"
+              >QA</a
+            ><a
+              *ngIf="!student.evaluationIdQA"
+              [routerLink]="['/evaluation/new', student.id]"
+              Class="text-danger"
+              >QA</a
+            ></b
+          ></small
+        ></span
+      >
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              *ngIf="student.evaluationIdUX"
+              [routerLink]="['/evaluation', student.evaluationIdUX]"
+              Class="text-success"
+              >UX</a
+            ><a
+              *ngIf="!student.evaluationIdUX"
+              [routerLink]="['/evaluation/new', student.id]"
+              Class="text-danger"
+              >UX</a
+            ></b
+          ></small
+        ></span
+      >
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              *ngIf="student.evaluationIdFE"
+              [routerLink]="['/evaluation', student.evaluationIdFE]"
+              Class="text-success"
+              >FE</a
+            ><a
+              *ngIf="!student.evaluationIdFE"
+              [routerLink]="['/evaluation/new', student.id]"
+              Class="text-danger"
+              >FE</a
+            ></b
+          ></small
+        ></span
+      >
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              *ngIf="student.evaluationIdBE"
+              [routerLink]="['/evaluation', student.evaluationIdBE]"
+              Class="text-success"
+              >BE</a
+            ><a
+              *ngIf="!student.evaluationIdBE"
+              [routerLink]="['/evaluation/new', student.id]"
+              Class="text-danger"
+              >BE</a
+            ></b
+          ></small
+        ></span
+      >
+    </h5>
+    <p class="card-text">
+      Evaluation amount: (<span>{{ student.evaluationAmount }}</span
+      >)
+      <span *ngIf="student.evaluationAmount"
+        ><a
+          [routerLink]="['/evaluate', student.id]"
+          class="card-link float-right"
+          >View evaluations</a
+        ></span
+      >
+    </p>
+  </div>
+</div>

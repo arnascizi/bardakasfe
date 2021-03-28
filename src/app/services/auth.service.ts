@@ -6,6 +6,7 @@ import { Teacher } from '../shared/teacher';
   providedIn: 'root',
 })
 export class AuthService {
+
   //TODO: remove testTeacher after auth implementation
   getCurrentUser(): Observable<Teacher> {
     const testTeacher: Teacher = {

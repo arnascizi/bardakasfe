@@ -4,13 +4,16 @@ import { Observable } from 'rxjs';
 import { Student } from '../shared/student';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StudentService {
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAllStudents(): Observable<Student[]> {
     return this.httpClient.get<Student[]>(`/api/students`);
+  }
+
+  getStudentById(id: string): Observable<Student> {
+    return this.httpClient.get<Student>(`/api/students/${id}`);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { take, tap } from 'rxjs/operators';
 import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
 import { EvaluationService } from '../services/evaluation.service';
@@ -12,25 +13,40 @@ import { Teacher } from '../shared/teacher';
 @Component({
   selector: 'app-student-dropdown',
   templateUrl: './student-dropdown.component.html',
-  styleUrls: ['./student-dropdown.component.scss'],
 })
 export class StudentDropdownComponent implements OnInit {
   @Input()
   selectedStudent: Student;
 
+  private routeStudentId: string | null;
+
   students: Student[];
-  teachers: Teacher[];
+  private teachers: Teacher[];
+  private evaluations: Evaluation[];
+
   evaluationItems: EvaluationTableItem[];
 
+  // Instead of figuring out how to make the <select> have a default value,
+  // I just put a default student in the student list, which gets removed when onChange is called.
+  private defaultOptionStudent: Student;
+
   constructor(
+    private route: ActivatedRoute,
     private studentService: StudentService,
     private evaluationService: EvaluationService,
     private teacherService: TeacherService
   ) {}
 
   ngOnInit(): void {
-    this.setupTeachers();
-    this.setupDefaultStudent();
+    this.routeStudentId = this.route.snapshot.paramMap.get('id');
+
+    this.defaultOptionStudent = {
+      id: -1,
+      name: 'Choose a',
+      surname: 'student',
+    };
+
+    this.setupEvaluations();
   }
 
   onChange(eventTarget: EventTarget | null): void {
@@ -40,11 +56,15 @@ export class StudentDropdownComponent implements OnInit {
 
     if (this.students.length < 1) return;
 
+    this.students = this.students.filter(
+      (student) => student.id != -1 // -1 is for the default student option :)
+    );
+
     this.selectedStudent = this.students.filter(
       (student) => student.id == Number(target.value)
     )[0];
 
-    this.setupEvaluations();
+    this.setupEvaluationItems();
   }
 
   private setupDefaultStudent(): void {
@@ -53,33 +73,55 @@ export class StudentDropdownComponent implements OnInit {
       .pipe(
         take(1),
         tap((students) => {
-          if (students.length < 1) return;
+          if (students.length >= 1) {
+            if (this.routeStudentId == null) {
+              students.unshift(this.defaultOptionStudent);
+            }
 
-          this.students = students;
+            this.students =
+              this.routeStudentId == null
+                ? students
+                : students.sort((e1, e2) =>
+                    e1.id == Number(this.routeStudentId) ? -1 : 1
+                  );
 
-          this.selectedStudent = students[0];
+            this.selectedStudent =
+              this.routeStudentId == null
+                ? students[0]
+                : students.filter(
+                    (s) => s.id == Number(this.routeStudentId)
+                  )[0];
 
-          this.setupEvaluations();
+            this.setupEvaluationItems();
+          }
         })
       )
       .subscribe();
   }
 
+  private setupEvaluationItems(): void {
+    this.evaluationItems = [];
+
+    let evals: Evaluation[] = this.evaluations.filter(
+      (e) => e.studentId == this.selectedStudent.id
+    );
+
+    evals = evals.sort((e1, e2) => (e1.stream > e2.stream ? 1 : -1));
+
+    evals.forEach((evaluation) => {
+      this.evaluationItems.push(this.getEvaluationDropdownItem(evaluation));
+    });
+  }
+
   private setupEvaluations(): void {
     this.evaluationService
-      .getEvaluationsByStudentId(this.selectedStudent.id.toString())
+      .getAllEvaluations()
       .pipe(
         take(1),
         tap((evals) => {
-          this.evaluationItems = [];
+          this.evaluations = evals;
 
-          evals = evals.sort((e1, e2) => (e1.stream > e2.stream ? 1 : -1));
-
-          evals.forEach((evaluation) => {
-            this.evaluationItems.push(
-              this.getEvaluationDropdownItem(evaluation)
-            );
-          });
+          this.setupTeachers();
         })
       )
       .subscribe();
@@ -92,6 +134,8 @@ export class StudentDropdownComponent implements OnInit {
         take(1),
         tap((t) => {
           this.teachers = t;
+
+          this.setupDefaultStudent();
         })
       )
       .subscribe();
@@ -105,15 +149,17 @@ export class StudentDropdownComponent implements OnInit {
     const fullTeacherName: string = this.getFullTeacherNameById(
       evaluation.teacherId
     );
-    const overallGrade: string = evaluation.overallEvaluation || 'No grade';
+    const overallGrade: string = OveralGradesEnumFunctions.getOverAllGradeEnumString(
+      evaluation.overallEvaluation
+    );
     const date: number = evaluation.updatedAt || 0;
 
-    const evaluationItem: EvaluationTableItem = {
+    let evaluationItem: EvaluationTableItem = {
       id: evaluationId,
       stream: stream,
       fullName: fullTeacherName,
       updatedAt: date,
-      overallGrade: OveralGradesEnumFunctions.getOverAllGradeEnumString(overallGrade),
+      overallGrade: overallGrade,
     };
 
     return evaluationItem;
