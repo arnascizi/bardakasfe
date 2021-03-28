@@ -1,19 +1,14 @@
-<div class="d-flex flex-row dropdown-container">
-  <label class="p-2">Student:</label>
-  <select
-    class="custom-select mb-2 col-7 border-primary border-3"
-    (change)="onChange($event.target)"
-  >
+<div class="d-flex flex-column pt-1" *ngIf="students">
+  <h4 *ngIf="selectedStudent && selectedStudent.id == -1">
+    Select a student for his/her evaluations
+  </h4>
+  <h6>Student:</h6>
+  <select class="custom-select mb-2 col-7 border-primary border-3 ml-1" (change)="onChange($event.target)">
     <option disabled>Choose your option</option>
-    <option *ngFor="let student of students" [value]="student.id"
-    [selected] = "student.id == selectedStudent.id">
+    <option *ngFor="let student of students" [value]="student.id" [selected]="student.id == selectedStudent.id">
       {{ student.name }} {{ student.surname }}
     </option>
   </select>
+  <app-student-dropdown-evaluations *ngIf="selectedStudent && selectedStudent.id != -1" [student]="selectedStudent"
+    [evaluationItems]="evaluationItems"></app-student-dropdown-evaluations>
 </div>
-
-<app-student-dropdown-evaluations
-  *ngIf="selectedStudent"
-  [student]="selectedStudent"
-  [evaluationItems]="evaluationItems"
-></app-student-dropdown-evaluations>

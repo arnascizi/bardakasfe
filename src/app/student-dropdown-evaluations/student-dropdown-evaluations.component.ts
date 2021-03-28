@@ -17,11 +17,12 @@ export class StudentDropdownEvaluationsComponent {
 
   constructor(private router: Router) {}
 
-  onClick(evaluationId: number) {
+  onClickRow(evaluationId: number) {
     this.router.navigateByUrl(`evaluation/${evaluationId}`);
   }
 
-  onCreateClick() {
-    this.router.navigateByUrl("evaluation")
+  onClickButton() {
+    this.router.navigateByUrl(`evaluation`);
   }
+
 }

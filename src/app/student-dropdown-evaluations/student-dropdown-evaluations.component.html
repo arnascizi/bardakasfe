@@ -1,5 +1,7 @@
 <div class="evaluation-container">
-  <a (click)="onCreateClick()"> Create new evaluation for student </a>
+  <button class="btn btn-warning" (click)="onClickButton()">
+    Create new evaluation for student
+  </button>
   <table class="table table-borderless table-striped table-hover">
     <thead>
       <tr>
@@ -12,12 +14,12 @@
     <tbody class="table-clickable">
       <tr
         *ngFor="let evaluationItem of evaluationItems"
-        (click)="onClick(evaluationItem.id)"
+        (click)="onClickRow(evaluationItem.id)"
       >
         <td>{{ evaluationItem.fullName }}</td>
         <td>{{ evaluationItem.stream }}</td>
         <td>{{ evaluationItem.overallGrade }}</td>
-        <td>{{ evaluationItem.updatedAt | date: "MMM d, y, h:mm" }}</td>
+        <td>{{ evaluationItem.updatedAt | date: "MMM d, y, hh:mm" }}</td>
       </tr>
     </tbody>
   </table>

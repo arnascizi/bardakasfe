@@ -1,0 +1,12 @@
+<div class="pt-3">
+  <ng-container *ngIf="studentInfoItems">
+    <button class="btn btn-warning" (click)="onClickButton()">
+      Add new student
+    </button>
+    <app-students-info
+      *ngFor="let student of studentInfoItems"
+      [student]="student"
+    >
+    </app-students-info>
+  </ng-container>
+</div>
