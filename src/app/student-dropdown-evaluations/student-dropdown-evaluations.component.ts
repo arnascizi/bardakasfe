@@ -18,11 +18,11 @@ export class StudentDropdownEvaluationsComponent {
   constructor(private router: Router) {}
 
   onClickRow(evaluationId: number) {
-    this.router.navigateByUrl(`home/evaluation/${evaluationId}`);
+    this.router.navigateByUrl(`evaluation/${evaluationId}`);
   }
 
   onClickButton() {
-    this.router.navigateByUrl(`home/evaluation`);
+    this.router.navigateByUrl(`evaluation`);
   }
 
 }

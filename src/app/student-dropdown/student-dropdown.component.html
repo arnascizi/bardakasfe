@@ -3,18 +3,12 @@
     Select a student for his/her evaluations
   </h4>
   <h6>Student:</h6>
-  <select
-    class="custom-select mb-2 col-7 border-primary border-3 ml-1"
-    (change)="onChange($event.target)"
-  >
-    <option *ngFor="let student of students" [value]="student.id">
+  <select class="custom-select mb-2 col-7 border-primary border-3 ml-1" (change)="onChange($event.target)">
+    <option disabled>Choose your option</option>
+    <option *ngFor="let student of students" [value]="student.id" [selected]="student.id == selectedStudent.id">
       {{ student.name }} {{ student.surname }}
     </option>
   </select>
-
-  <app-student-dropdown-evaluations
-    *ngIf="selectedStudent && selectedStudent.id != -1"
-    [student]="selectedStudent"
-    [evaluationItems]="evaluationItems"
-  ></app-student-dropdown-evaluations>
+  <app-student-dropdown-evaluations *ngIf="selectedStudent && selectedStudent.id != -1" [student]="selectedStudent"
+    [evaluationItems]="evaluationItems"></app-student-dropdown-evaluations>
 </div>

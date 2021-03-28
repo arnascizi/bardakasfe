@@ -35,7 +35,7 @@ export class StudentDropdownComponent implements OnInit {
     private route: ActivatedRoute,
     private studentService: StudentService,
     private evaluationService: EvaluationService,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class StudentDropdownComponent implements OnInit {
   }
 
   private setupDefaultStudent(): void {
-    this.studentService
+      this.studentService
       .getAllStudents()
       .pipe(
         take(1),
@@ -98,6 +98,7 @@ export class StudentDropdownComponent implements OnInit {
         })
       )
       .subscribe();
+
   }
 
   private setupEvaluationItems(): void {

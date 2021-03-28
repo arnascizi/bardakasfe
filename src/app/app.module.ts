@@ -1,5 +1,4 @@
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EvaluationFormComponent } from './evaluation-form/evaluation-form.component';
@@ -20,6 +19,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StudentDropdownComponent } from './student-dropdown/student-dropdown.component';
 import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluations/student-dropdown-evaluations.component';
+import { OverviewComponent } from './overview/overview.component';
 import { StudentsPageComponent } from './students-page/students-page.component';
 import { StudentsInfoComponent } from './students-info/students-info.component';
 
@@ -29,7 +29,6 @@ import { StudentsInfoComponent } from './students-info/students-info.component';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
     TeacherDetailsComponent,
     TeachersPageComponent,
     TeachersInfoComponent,
@@ -38,6 +37,7 @@ import { StudentsInfoComponent } from './students-info/students-info.component';
     StudentDropdownComponent,
     StudentDropdownEvaluationsComponent,
     EvaluationFormComponent,
+    OverviewComponent,
     StudentsPageComponent,
     StudentsInfoComponent,
   ],
