@@ -1,0 +1,70 @@
+<div class="card my-2">
+  <div class="card-body">
+    <h5 class="card-title border-bottom border-bottom-ligth">
+      {{ student.name }} {{ student.surname }}
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              [routerLink]="['../../home/evaluation', student.evaluationIdQA]"
+              [ngClass]="
+                student.evaluationIdQA ? 'text-success' : 'text-danger'
+              "
+              >QA</a
+            ></b
+          ></small
+        ></span
+      >
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              [routerLink]="['../../home/evaluation', student.evaluationIdUX]"
+              [ngClass]="
+                student.evaluationIdUX ? 'text-success' : 'text-danger'
+              "
+              >UX</a
+            ></b
+          ></small
+        ></span
+      >
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              [routerLink]="['../../home/evaluation', student.evaluationIdFE]"
+              [ngClass]="
+                student.evaluationIdFE ? 'text-success' : 'text-danger'
+              "
+              >FE</a
+            ></b
+          ></small
+        ></span
+      >
+      <span class="card-subtitle mb-2 text-muted float-right mr-1"
+        ><small
+          ><b
+            ><a
+              [routerLink]="['../../home/evaluation', student.evaluationIdBE]"
+              [ngClass]="
+                student.evaluationIdBE ? 'text-success' : 'text-danger'
+              "
+              >BE</a
+            ></b
+          ></small
+        ></span
+      >
+    </h5>
+    <p class="card-text">
+      Evaluation amount: (<span>{{ student.evaluationAmount }}</span
+      >)
+      <span *ngIf="student.evaluationAmount"
+        ><a
+          [routerLink]="['/home/dropdown', student.id]"
+          class="card-link float-right"
+          >View evaluations</a
+        ></span
+      >
+    </p>
+  </div>
+</div>
