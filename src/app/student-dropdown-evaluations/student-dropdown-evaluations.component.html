@@ -14,10 +14,10 @@
         *ngFor="let evaluationItem of evaluationItems"
         (click)="onClick(evaluationItem.id)"
       >
-        <td>{{ evaluationItem.fullTeacherName }}</td>
+        <td>{{ evaluationItem.fullName }}</td>
         <td>{{ evaluationItem.stream }}</td>
         <td>{{ evaluationItem.overallGrade }}</td>
-        <td>{{ evaluationItem.updatedAt }}</td>
+        <td>{{ evaluationItem.updatedAt | date: "MMM d, y, h:mm" }}</td>
       </tr>
     </tbody>
   </table>
