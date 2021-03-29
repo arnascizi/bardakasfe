@@ -7,7 +7,6 @@
     class="custom-select mb-2 col-7 border-primary border-3 ml-4"
     (change)="onChange($event.target)"
   >
-    <option disabled>Choose your option</option>
     <option
       *ngFor="let student of students"
       [value]="student.id"
@@ -16,9 +15,10 @@
       {{ student.name }} {{ student.surname }}
     </option>
   </select>
-  <app-student-dropdown-evaluations
-    *ngIf="selectedStudent && selectedStudent.id != -1"
-    [student]="selectedStudent"
-    [evaluationItems]="evaluationItems"
-  ></app-student-dropdown-evaluations>
+  <div *ngIf="selectedStudent && selectedStudent.id != -1">
+    <app-student-dropdown-evaluations
+      [student]="selectedStudent"
+      [evaluationItems]="evaluationItems"
+    ></app-student-dropdown-evaluations>
+  </div>
 </div>

@@ -2,7 +2,10 @@
   <button class="btn btn-warning" (click)="onClickButton()">
     Create new evaluation for student
   </button>
-  <table class="table table-borderless table-striped table-hover">
+  <table
+    class="table table-borderless table-striped table-hover"
+    *ngIf="evaluationItems.length > 0"
+  >
     <thead>
       <tr>
         <th scope="col">Teacher</th>
