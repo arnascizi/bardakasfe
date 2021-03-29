@@ -7,7 +7,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { combineLatest, Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
@@ -52,6 +52,7 @@ export class EvaluationFormComponent implements OnInit {
     private studentService: StudentService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private router: Router,
     private teacherService: TeacherService,
     private alertService: AlertService,
     private toastrService: ToastrService
@@ -268,7 +269,8 @@ export class EvaluationFormComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (res) => {
-          this.toastrService.success('Evaluation updated!', 'Success');
+          this.toastrService.success('Evaluation created!', 'Success');
+          this.router.navigateByUrl(`/evaluate/${this.evaluationForm.value.studentId}`);
         },
         (err) => {
           this.handleError(err);
@@ -283,6 +285,7 @@ export class EvaluationFormComponent implements OnInit {
       .subscribe(
         (res) => {
           this.toastrService.success('Evaluation updated!', 'Success');
+          this.router.navigateByUrl(`/evaluate/${this.evaluationForm.value.studentId}`);
         },
         (err) => {
           this.handleError(err);
@@ -291,7 +294,7 @@ export class EvaluationFormComponent implements OnInit {
   }
 
   private handleError(error: ErrorEvent | HttpErrorResponse) {
-    if (!(error.error instanceof ErrorEvent) && error.error.status === 422) {
+    if (error.error.status === 422 || error.error.status === 409) {
       if (error.error.message !== undefined) {
         this.alertService.show(error.error.message, AlertType.Error);
       } else {

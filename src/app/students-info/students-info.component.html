@@ -79,8 +79,16 @@
           [routerLink]="['/evaluate', student.id]"
           class="card-link float-right"
           >View evaluations</a
-        ></span
+        >
+        </span
       >
     </p>
+    <span>
+      <a
+          (click)="onRemoveClick()"
+          class="card-link float-right text-danger remove-link"
+          >Remove student</a
+        >
+    </span>
   </div>
 </div>
