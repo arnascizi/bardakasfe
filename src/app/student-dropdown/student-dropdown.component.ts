@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take, tap } from 'rxjs/operators';
-import { OveralGrades } from '../constants/overall-grades.enum';
+import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
 import { EvaluationService } from '../services/evaluation.service';
 import { StudentService } from '../services/student.service';
 import { TeacherService } from '../services/teacher.service';
@@ -13,7 +13,6 @@ import { Teacher } from '../shared/teacher';
 @Component({
   selector: 'app-student-dropdown',
   templateUrl: './student-dropdown.component.html',
-  styleUrls: ['./student-dropdown.component.scss'],
 })
 export class StudentDropdownComponent implements OnInit {
   @Input()
@@ -35,7 +34,7 @@ export class StudentDropdownComponent implements OnInit {
     private route: ActivatedRoute,
     private studentService: StudentService,
     private evaluationService: EvaluationService,
-    private teacherService: TeacherService,
+    private teacherService: TeacherService
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +68,7 @@ export class StudentDropdownComponent implements OnInit {
   }
 
   private setupDefaultStudent(): void {
-      this.studentService
+    this.studentService
       .getAllStudents()
       .pipe(
         take(1),
@@ -98,7 +97,6 @@ export class StudentDropdownComponent implements OnInit {
         })
       )
       .subscribe();
-
   }
 
   private setupEvaluationItems(): void {
@@ -151,7 +149,7 @@ export class StudentDropdownComponent implements OnInit {
     const fullTeacherName: string = this.getFullTeacherNameById(
       evaluation.teacherId
     );
-    const overallGrade: string = OveralGrades.getOverAllGradeEnumString(
+    const overallGrade: string = OveralGradesEnumFunctions.getOverAllGradeEnumString(
       evaluation.overallEvaluation
     );
     const date: number = evaluation.updatedAt || 0;

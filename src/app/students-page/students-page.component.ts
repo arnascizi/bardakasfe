@@ -12,7 +12,6 @@ import { StudentInfoItem } from '../shared/student-info-item';
 @Component({
   selector: 'app-students-page',
   templateUrl: './students-page.component.html',
-  styleUrls: ['./students-page.component.scss'],
 })
 export class StudentsPageComponent implements OnInit {
   studentInfoItems: StudentInfoItem[];
@@ -88,10 +87,14 @@ export class StudentsPageComponent implements OnInit {
         student.id
       );
 
-      const evaluationIdBE: string = evaluationsBE.length >= 1 ? evaluationsBE[0].id.toString() : "";
-      const evaluationIdFE: string = evaluationsFE.length >= 1 ? evaluationsFE[0].id.toString() : "";
-      const evaluationIdUX: string = evaluationsUX.length >= 1 ? evaluationsUX[0].id.toString() : "";
-      const evaluationIdQA: string = evaluationsQA.length >= 1 ? evaluationsQA[0].id.toString() : "";
+      const evaluationIdBE: string =
+        evaluationsBE.length >= 1 ? evaluationsBE[0].id.toString() : '';
+      const evaluationIdFE: string =
+        evaluationsFE.length >= 1 ? evaluationsFE[0].id.toString() : '';
+      const evaluationIdUX: string =
+        evaluationsUX.length >= 1 ? evaluationsUX[0].id.toString() : '';
+      const evaluationIdQA: string =
+        evaluationsQA.length >= 1 ? evaluationsQA[0].id.toString() : '';
 
       this.studentInfoItems.push({
         id: student.id,

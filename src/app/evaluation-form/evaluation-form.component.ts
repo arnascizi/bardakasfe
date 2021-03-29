@@ -7,10 +7,10 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, concat, EMPTY, Observable } from 'rxjs';
-import { catchError, map, take, tap } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 import { Grades } from '../constants/grades.enum';
 import { OveralGrades } from '../constants/overall-grades.enum';
 import { Streams } from '../constants/streams.enum';
@@ -38,6 +38,7 @@ export class EvaluationFormComponent implements OnInit {
   allStreams: string[];
 
   teacher: Person;
+  student: Person;
 
   loggedUser: Person;
 
@@ -66,7 +67,7 @@ export class EvaluationFormComponent implements OnInit {
   ngOnInit(): void {
     this.students$ = this.studentService.getAllStudents();
 
-    this.initDropdownsValues();
+    this.loadRadioButtonValues();
 
     this.initEvaluationForm();
   }
@@ -75,10 +76,15 @@ export class EvaluationFormComponent implements OnInit {
     combineLatest([this.route.paramMap, this.authService.getCurrentUser()])
       .pipe(
         map(([router, currentUser]) => {
-          const id = router.get('id');
-          if (id) {
+          const evaluationId = router.get('evaluationId');
+          const studentId = router.get('studentId');
+          if (evaluationId && evaluationId != 'new') {
             this.loggedUser = currentUser;
-            this.prefillEditForm(id);
+            this.prefillEditForm(evaluationId);
+          } else if (studentId) {
+            this.teacher = currentUser;
+            this.initForm(undefined, studentId);
+            this.fetchStudent(studentId);
           } else {
             this.teacher = currentUser;
             this.initForm();
@@ -95,11 +101,12 @@ export class EvaluationFormComponent implements OnInit {
         take(1),
         tap((values: Evaluation) => {
           this.initForm(values);
+          this.fetchStudent(values.studentId.toString());
 
           if (values.teacherId === this.loggedUser.id) {
             this.teacher = this.loggedUser;
           } else {
-            this.setTeacher(values.teacherId);
+            this.fetchTeacher(values.teacherId);
           }
 
           this.evaluationForm.disable();
@@ -108,7 +115,25 @@ export class EvaluationFormComponent implements OnInit {
       .subscribe();
   }
 
-  private setTeacher(id: number) {
+  private fetchStudent(id: string): void {
+    if (id) {
+      this.studentService
+        .getStudentById(id)
+        .pipe(
+          take(1),
+          tap(
+            (value) =>
+              (this.student = {
+                ...value,
+                fullName: `${value.name} ${value.surname}`,
+              })
+          )
+        )
+        .subscribe();
+    }
+  }
+
+  private fetchTeacher(id: number): void {
     this.teacherService
       .getTeacherById(id)
       .pipe(
@@ -124,10 +149,10 @@ export class EvaluationFormComponent implements OnInit {
       .subscribe();
   }
 
-  private initForm(evaluation?: Evaluation): void {
+  private initForm(evaluation?: Evaluation, studentId?: string): void {
     this.evaluationForm = this.fb.group({
       studentId: [
-        evaluation?.studentId || '',
+        evaluation?.studentId || studentId || '',
         {
           validators: [Validators.required],
         },
@@ -209,7 +234,7 @@ export class EvaluationFormComponent implements OnInit {
     });
   }
 
-  private initDropdownsValues(): void {
+  private loadRadioButtonValues(): void {
     this.gradeSelectionOptions = Grades;
     this.overallEvaluationOptions = OveralGrades;
     this.allStreams = Streams.values();
@@ -240,14 +265,12 @@ export class EvaluationFormComponent implements OnInit {
   private addEvaluationForm(): void {
     this.evaluationService
       .addEvaluation(this.evaluationForm.value)
-      .pipe(
-        take(1)
-      )
+      .pipe(take(1))
       .subscribe(
-        res => {
-          this.toastrService.success("Evaluation updated!", "Success")
+        (res) => {
+          this.toastrService.success('Evaluation updated!', 'Success');
         },
-        err => {
+        (err) => {
           this.handleError(err);
         }
       );
@@ -256,14 +279,12 @@ export class EvaluationFormComponent implements OnInit {
   private updateEditedEvaluationForm(): void {
     this.evaluationService
       .updateEditedEvaluation(this.evaluationForm.value)
-      .pipe(
-        take(1),
-      )
+      .pipe(take(1))
       .subscribe(
-        res => {
-          this.toastrService.success("Evaluation updated!", "Success")
+        (res) => {
+          this.toastrService.success('Evaluation updated!', 'Success');
         },
-        err => {
+        (err) => {
           this.handleError(err);
         }
       );
@@ -274,7 +295,7 @@ export class EvaluationFormComponent implements OnInit {
       if (error.error.message !== undefined) {
         this.alertService.show(error.error.message, AlertType.Error);
       } else {
-        this.alertService.show("Something went wrong", AlertType.Error);
+        this.alertService.show('Something went wrong', AlertType.Error);
       }
     }
   }

@@ -22,7 +22,6 @@ export class StudentDropdownEvaluationsComponent {
   }
 
   onClickButton() {
-    this.router.navigateByUrl(`evaluation`);
+    this.router.navigateByUrl(`evaluation/new/${this.student.id}`);
   }
-
 }

@@ -13,18 +13,19 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/evaluate' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'evaluation', component: EvaluationFormComponent },
-  { path: 'evaluation/:id', component: EvaluationFormComponent },
+  { path: 'evaluation/new/:studentId', component: EvaluationFormComponent },
+  { path: 'evaluation/:evaluationId', component: EvaluationFormComponent },
   { path: 'students', component: StudentsPageComponent },
   { path: 'teachers', component: TeachersPageComponent },
   { path: 'teachers/:id', component: TeacherDetailsComponent },
   { path: 'evaluate', component: StudentDropdownComponent },
   { path: 'evaluate/:id', component: StudentDropdownComponent },
-  { path: 'overview', component: OverviewComponent }
+  { path: 'overview', component: OverviewComponent },
+  { path: '**', redirectTo: '/evaluate' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

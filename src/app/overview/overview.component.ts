@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
-import { OveralGrades } from '../constants/overall-grades.enum';
+import { forkJoin, Observable, of } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
+import {
+  OveralGrades,
+  OveralGradesEnumFunctions,
+} from '../constants/overall-grades.enum';
 import { Streams } from '../constants/streams.enum';
 import { EvaluationService } from '../services/evaluation.service';
 import { StudentService } from '../services/student.service';
@@ -13,7 +16,7 @@ import { Student } from '../shared/student';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+  styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
   streams: string[] = Streams.values();
@@ -26,17 +29,22 @@ export class OverviewComponent implements OnInit {
     private studentService: StudentService,
     private evaluationService: EvaluationService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    forkJoin([this.studentService.getAllStudents(), this.evaluationService.getAllEvaluations()]).pipe(
-      take(1),
-      tap((results) => {
-        this.students = results[0];
-        this.evaluations = results[1];
-        this.initOverviewItems();
-      })
-    ).subscribe();
+    forkJoin([
+      this.studentService.getAllStudents(),
+      this.evaluationService.getAllEvaluations(),
+    ])
+      .pipe(
+        take(1),
+        tap((results) => {
+          this.students = results[0];
+          this.evaluations = results[1];
+          this.initOverviewItems();
+        })
+      )
+      .subscribe();
   }
 
   initOverviewItems() {
@@ -45,11 +53,23 @@ export class OverviewComponent implements OnInit {
         this.overviewItems.push({
           id: student.id,
           fullStudentName: `${student.name} ${student.surname}`,
-          beOverallGrade: this.calcEvaluationAverages(Streams[Streams.BE], student),
-          feOverallGrade: this.calcEvaluationAverages(Streams[Streams.FE], student),
-          uxOverallGrade: this.calcEvaluationAverages(Streams[Streams.UX], student),
-          qaOverallGrade: this.calcEvaluationAverages(Streams[Streams.FE], student)
-        })
+          beOverallGrade: this.calcEvaluationAverages(
+            Streams[Streams.BE],
+            student
+          ),
+          feOverallGrade: this.calcEvaluationAverages(
+            Streams[Streams.FE],
+            student
+          ),
+          uxOverallGrade: this.calcEvaluationAverages(
+            Streams[Streams.UX],
+            student
+          ),
+          qaOverallGrade: this.calcEvaluationAverages(
+            Streams[Streams.FE],
+            student
+          ),
+        });
       });
       this.overviewItems$ = of(this.overviewItems);
     }
@@ -61,19 +81,39 @@ export class OverviewComponent implements OnInit {
     this.evaluations.forEach((evaluation) => {
       if (evaluation.studentId === student.id && evaluation.stream === stream) {
         count++;
-        if (OveralGrades.getOverAllGradeEnumString(evaluation.overallEvaluation) === OveralGrades.NOT_RECOMMENDED) average += 1;
-        if (OveralGrades.getOverAllGradeEnumString(evaluation.overallEvaluation) === OveralGrades.AVERAGE) average += 2;
-        if (OveralGrades.getOverAllGradeEnumString(evaluation.overallEvaluation) === OveralGrades.GOOD) average += 3;
-        if (OveralGrades.getOverAllGradeEnumString(evaluation.overallEvaluation) === OveralGrades.VERY_GOOD) average += 4;
+        if (
+          OveralGradesEnumFunctions.getOverAllGradeEnumString(
+            evaluation.overallEvaluation
+          ) === OveralGrades.NOT_RECOMMENDED
+        )
+          average += 1;
+        if (
+          OveralGradesEnumFunctions.getOverAllGradeEnumString(
+            evaluation.overallEvaluation
+          ) === OveralGrades.AVERAGE
+        )
+          average += 2;
+        if (
+          OveralGradesEnumFunctions.getOverAllGradeEnumString(
+            evaluation.overallEvaluation
+          ) === OveralGrades.GOOD
+        )
+          average += 3;
+        if (
+          OveralGradesEnumFunctions.getOverAllGradeEnumString(
+            evaluation.overallEvaluation
+          ) === OveralGrades.VERY_GOOD
+        )
+          average += 4;
       }
-    })
+    });
     if (count !== 0) {
       if (average / count <= 1) return OveralGrades.NOT_RECOMMENDED;
       if (average / count <= 2) return OveralGrades.AVERAGE;
       if (average / count <= 3) return OveralGrades.GOOD;
       if (average / count <= 4) return OveralGrades.VERY_GOOD;
     }
-    return "Not evaluated";
+    return 'Not evaluated';
   }
 
   goToStudentDropdown(overviewId: number) {
@@ -85,21 +125,35 @@ export class OverviewComponent implements OnInit {
 
     let target = eventTarget as HTMLSelectElement;
 
-    this.overviewItems$ = of(this.overviewItems.sort((a, b) => {
-      if (target.value === Streams[Streams.BE]) {
-        return this.gradeToNum(b.beOverallGrade) - this.gradeToNum(a.beOverallGrade);
-      }
-      if (target.value === Streams[Streams.FE]) {
-        return this.gradeToNum(b.feOverallGrade) - this.gradeToNum(a.feOverallGrade);
-      }
-      if (target.value === Streams[Streams.UX]) {
-        return this.gradeToNum(b.uxOverallGrade) - this.gradeToNum(a.uxOverallGrade);
-      }
-      if (target.value === Streams[Streams.QA]) {
-        return this.gradeToNum(b.qaOverallGrade) - this.gradeToNum(a.qaOverallGrade);
-      }
-      return 0;
-    }));
+    this.overviewItems$ = of(
+      this.overviewItems.sort((a, b) => {
+        if (target.value === Streams[Streams.BE]) {
+          return (
+            this.gradeToNum(b.beOverallGrade) -
+            this.gradeToNum(a.beOverallGrade)
+          );
+        }
+        if (target.value === Streams[Streams.FE]) {
+          return (
+            this.gradeToNum(b.feOverallGrade) -
+            this.gradeToNum(a.feOverallGrade)
+          );
+        }
+        if (target.value === Streams[Streams.UX]) {
+          return (
+            this.gradeToNum(b.uxOverallGrade) -
+            this.gradeToNum(a.uxOverallGrade)
+          );
+        }
+        if (target.value === Streams[Streams.QA]) {
+          return (
+            this.gradeToNum(b.qaOverallGrade) -
+            this.gradeToNum(a.qaOverallGrade)
+          );
+        }
+        return 0;
+      })
+    );
   }
 
   gradeToNum(grade: string): number {
