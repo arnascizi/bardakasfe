@@ -1,14 +1,16 @@
-<h4 *ngIf="teacher" class="mt-3">
-  Evaluations made by <strong>{{ teacher.fullName }}</strong>
+<h4 *ngIf="teacher" class="pt-3 ml-3">
+  Evaluations made by <strong class="name-color">{{ teacher.fullName }}</strong>
 </h4>
-<div class="evaluation-container ml-2">
+<div class="evaluation-container mx-4 pb-2">
   <table class="table table-borderless table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">Student</th>
-        <th scope="col">Stream</th>
-        <th scope="col">Overall grade</th>
-        <th scope="col">Date</th>
+        <th scope="col "><span class="col-name-text-size">Student</span></th>
+        <th scope="col "><span class="col-name-text-size">Stream</span></th>
+        <th scope="col ">
+          <span class="col-name-text-size">Overall grade</span>
+        </th>
+        <th scope="col "><span class="col-name-text-size">Date</span></th>
       </tr>
     </thead>
     <tbody class="table-clickable">

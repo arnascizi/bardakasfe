@@ -1,5 +1,5 @@
-<div class="evaluation-container">
-  <button class="btn btn-warning" (click)="onClickButton()">
+<div class="evaluation-container my-3 mx-4">
+  <button class="btn button-main mb-2" (click)="onClickButton()">
     Create new evaluation for student
   </button>
   <table
@@ -8,10 +8,12 @@
   >
     <thead>
       <tr>
-        <th scope="col">Teacher</th>
-        <th scope="col">Stream</th>
-        <th scope="col">Overall grade</th>
-        <th scope="col">Date</th>
+        <th scope="col "><span class="col-name-text-size">Teacher</span></th>
+        <th scope="col"><span class="col-name-text-size">Stream</span></th>
+        <th scope="col">
+          <span class="col-name-text-size">Overall grade</span>
+        </th>
+        <th scope="col"><span class="col-name-text-size">Date</span></th>
       </tr>
     </thead>
     <tbody class="table-clickable">

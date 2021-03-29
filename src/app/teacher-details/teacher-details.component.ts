@@ -12,6 +12,7 @@ import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
 @Component({
   selector: 'app-teacher-details',
   templateUrl: './teacher-details.component.html',
+  styleUrls: ['./teacher-details.component.scss'],
 })
 export class TeacherDetailsComponent implements OnInit {
   evaluations: Evaluation[];
@@ -119,6 +120,6 @@ export class TeacherDetailsComponent implements OnInit {
   }
 
   onClick(evaluationId: number) {
-    this.router.navigateByUrl(`home/evaluation/${evaluationId}`);
+    this.router.navigateByUrl(`/evaluation/${evaluationId}`);
   }
 }
