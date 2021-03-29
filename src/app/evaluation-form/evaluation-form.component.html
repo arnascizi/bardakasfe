@@ -1,12 +1,12 @@
 <alert></alert>
-<div class="mt-3 ml-3">
+<div class="py-3 ml-3">
   <h4 *ngIf="!student">Student evaluation form</h4>
   <h4 *ngIf="student">
-    Evaluation form for <strong>{{ student.fullName }}</strong>
+    Evaluation form for <strong class="name-color">{{ student.fullName }}</strong>
   </h4>
   <form
     *ngIf="evaluationForm && teacher"
-    class="ml-3"
+    class="ml-3 pb-3"
     [formGroup]="evaluationForm"
     (submit)="submitForm()"
   >
@@ -70,6 +70,8 @@
         placeholder="Comments (Optional)."
       ></textarea>
 
+      <label>Evaluation for :</label>
+
       <div
         [hidden]="
           evaluationForm.controls.stream.valid ||
@@ -81,7 +83,6 @@
           Please select stream value.
         </div>
       </div>
-      <label>Evaluation for :</label>
 
       <div class="form-check ml-3" *ngFor="let stream of allStreams">
         <input
@@ -115,24 +116,26 @@
         </div>
       </div>
 
-      <div
-        class="form-check ml-3"
-        *ngFor="let option of gradeSelectionOptions | keyvalue: orderOriginal"
-      >
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="communicationGrade"
-          value="{{ option.key }}"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.communicationGrade.invalid &&
-              evaluationForm.controls.communicationGrade.dirty
-          }"
-        />
-        <label class="form-check-label" for="communicationGrade">
-          {{ option.value }}
-        </label>
+      <div class="mb-2">
+        <div
+          class="form-check ml-3"
+          *ngFor="let option of gradeSelectionOptions | keyvalue: orderOriginal"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="communicationGrade"
+            value="{{ option.key }}"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.communicationGrade.invalid &&
+                evaluationForm.controls.communicationGrade.dirty
+            }"
+          />
+          <label class="form-check-label" for="communicationGrade">
+            {{ option.value }}
+          </label>
+        </div>
       </div>
 
       <div
@@ -149,7 +152,7 @@
         </div>
       </div>
       <textarea
-        class="form-control mt-2"
+        class="form-control"
         type="text"
         formControlName="communicationComment"
         [ngClass]="{
@@ -176,24 +179,26 @@
         </div>
       </div>
 
-      <div
-        class="form-check ml-3"
-        *ngFor="let option of gradeSelectionOptions | keyvalue: orderOriginal"
-      >
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="abilityToLearnGrade"
-          value="{{ option.key }}"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.abilityToLearnGrade.invalid &&
-              evaluationForm.controls.abilityToLearnGrade.dirty
-          }"
-        />
-        <label class="form-check-label" for="abilityToLearnGrade">
-          {{ option.value }}
-        </label>
+      <div class="mb-2">
+        <div
+          class="form-check ml-3"
+          *ngFor="let option of gradeSelectionOptions | keyvalue: orderOriginal"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="abilityToLearnGrade"
+            value="{{ option.key }}"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.abilityToLearnGrade.invalid &&
+                evaluationForm.controls.abilityToLearnGrade.dirty
+            }"
+          />
+          <label class="form-check-label" for="abilityToLearnGrade">
+            {{ option.value }}
+          </label>
+        </div>
       </div>
 
       <div
@@ -212,7 +217,7 @@
         </div>
       </div>
       <textarea
-        class="form-control mt-2"
+        class="form-control"
         type="text"
         formControlName="abilityToLearnComments"
         [ngClass]="{
@@ -237,33 +242,35 @@
         </div>
       </div>
 
-      <div class="form-check ml-3">
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="isExtraMile"
-          [value]="true"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.isExtraMile.invalid &&
-              evaluationForm.controls.isExtraMile.dirty
-          }"
-        />
-        <label class="form-check-label" for="isExtraMile"> Yes </label>
-      </div>
-      <div class="form-check ml-3">
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="isExtraMile"
-          [value]="false"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.isExtraMile.invalid &&
-              evaluationForm.controls.isExtraMile.dirty
-          }"
-        />
-        <label class="form-check-label" for="isExtraMile"> No </label>
+      <div class="mb-2">
+        <div class="form-check ml-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="isExtraMile"
+            [value]="true"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.isExtraMile.invalid &&
+                evaluationForm.controls.isExtraMile.dirty
+            }"
+          />
+          <label class="form-check-label" for="isExtraMile"> Yes </label>
+        </div>
+        <div class="form-check ml-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="isExtraMile"
+            [value]="false"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.isExtraMile.invalid &&
+                evaluationForm.controls.isExtraMile.dirty
+            }"
+          />
+          <label class="form-check-label" for="isExtraMile"> No </label>
+        </div>
       </div>
 
       <div
@@ -280,7 +287,7 @@
         </div>
       </div>
       <textarea
-        class="form-control mt-2"
+        class="form-control"
         type="text"
         formControlName="extraMileComments"
         [ngClass]="{
@@ -305,33 +312,35 @@
         </div>
       </div>
 
-      <div class="form-check ml-3">
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="isMotivated"
-          [value]="true"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.isMotivated.invalid &&
-              evaluationForm.controls.isMotivated.dirty
-          }"
-        />
-        <label class="form-check-label" for="isMotivated"> Yes </label>
-      </div>
-      <div class="form-check ml-3">
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="isMotivated"
-          [value]="false"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.isMotivated.invalid &&
-              evaluationForm.controls.isMotivated.dirty
-          }"
-        />
-        <label class="form-check-label" for="isMotivated"> No </label>
+      <div class="mb-2">
+        <div class="form-check ml-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="isMotivated"
+            [value]="true"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.isMotivated.invalid &&
+                evaluationForm.controls.isMotivated.dirty
+            }"
+          />
+          <label class="form-check-label" for="isMotivated"> Yes </label>
+        </div>
+        <div class="form-check ml-3">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="isMotivated"
+            [value]="false"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.isMotivated.invalid &&
+                evaluationForm.controls.isMotivated.dirty
+            }"
+          />
+          <label class="form-check-label" for="isMotivated"> No </label>
+        </div>
       </div>
 
       <div
@@ -348,7 +357,7 @@
         </div>
       </div>
       <textarea
-        class="form-control mt-2"
+        class="form-control"
         type="text"
         formControlName="motivationComments"
         [ngClass]="{
@@ -404,26 +413,28 @@
         </div>
       </div>
 
-      <div
-        class="form-check ml-3"
-        *ngFor="
-          let option of overallEvaluationOptions | keyvalue: orderOriginal
-        "
-      >
-        <input
-          class="form-check-input"
-          type="radio"
-          formControlName="overallEvaluation"
-          value="{{ option.key }}"
-          [ngClass]="{
-            'is-invalid':
-              evaluationForm.controls.overallEvaluation.invalid &&
-              evaluationForm.controls.overallEvaluation.dirty
-          }"
-        />
-        <label class="form-check-label" for="overallEvaluation">
-          {{ option.value }}
-        </label>
+      <div class="mb-2">
+        <div
+          class="form-check ml-3"
+          *ngFor="
+            let option of overallEvaluationOptions | keyvalue: orderOriginal
+          "
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="overallEvaluation"
+            value="{{ option.key }}"
+            [ngClass]="{
+              'is-invalid':
+                evaluationForm.controls.overallEvaluation.invalid &&
+                evaluationForm.controls.overallEvaluation.dirty
+            }"
+          />
+          <label class="form-check-label" for="overallEvaluation">
+            {{ option.value }}
+          </label>
+        </div>
       </div>
 
       <div
@@ -441,7 +452,7 @@
         </div>
       </div>
       <textarea
-        class="form-control control-label mt-2 border-primary border-3"
+        class="form-control control-label border-primary border-3"
         type="text"
         formControlName="overallComments"
         [ngClass]="{
@@ -452,9 +463,12 @@
         rows="4"
       ></textarea>
     </div>
-    <div class="col-7" *ngIf="!loggedUser || teacher.id === loggedUser?.id">
+    <div
+      class="col-7 pb-4"
+      *ngIf="!loggedUser || teacher.id === loggedUser?.id"
+    >
       <button
-        class="btn btn-warning mr-3 float-right"
+        class="btn button-main mr-3 float-right"
         type="submit"
         *ngIf="!loggedUser || evaluationForm.enabled"
       >
