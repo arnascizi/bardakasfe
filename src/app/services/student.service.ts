@@ -16,4 +16,8 @@ export class StudentService {
   getStudentById(id: string): Observable<Student> {
     return this.httpClient.get<Student>(`/api/students/${id}`);
   }
+
+  deleteStudentById(id: string): Observable<Student> {
+    return this.httpClient.delete<Student>(`/api/students/${id}`);
+  }
 }

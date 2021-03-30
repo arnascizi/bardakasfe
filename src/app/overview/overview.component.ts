@@ -29,7 +29,7 @@ export class OverviewComponent implements OnInit {
     private studentService: StudentService,
     private evaluationService: EvaluationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     forkJoin([
@@ -71,8 +71,8 @@ export class OverviewComponent implements OnInit {
           ),
         });
       });
-      this.overviewItems$ = of(this.overviewItems);
     }
+    this.overviewItems$ = of(this.overviewItems.sort((a, b) => this.gradeToNum(b.beOverallGrade) - this.gradeToNum(a.beOverallGrade)));
   }
 
   private calcEvaluationAverages(stream: string, student: Student): string {
