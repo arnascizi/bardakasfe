@@ -23,7 +23,7 @@ export class StudentsInfoComponent {
   ) {}
 
   onRemoveClick() {
-    this.notificationService.confirmation(`All evaluations for this student will be removed. Are you sure you want to remove ${this.student.name} ${this.student.surname}?`, "Are you positively sure?", () => {
+    this.notificationService.confirmation(`All evaluations for this student will be removed. Including evaluations made by other teachers. Are you sure you want to remove ${this.student.name} ${this.student.surname}?`, "Are you positively sure?", () => {
       this.studentService.deleteStudentById(`${this.student.id}`).pipe(
         take(1)        
       ).subscribe(

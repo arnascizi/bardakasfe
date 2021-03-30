@@ -1,23 +1,28 @@
 <div class="card my-2">
 
   <span class="card-header d-flex">
-    <h5 class="mr-auto my-auto">{{ student.name }} {{ student.surname }}</h5>
-    <button class="text-muted mr-3" [ngClass]="(student.evaluationIdBE)?'btn btn-success':'btn button-main'">
-      <b><a class="text-dark" *ngIf="student.evaluationIdBE"
-          [routerLink]="['/evaluation', student.evaluationIdBE]">BE</a><a class="text-dark"
-          *ngIf="!student.evaluationIdBE" [routerLink]="['/evaluation/new', student.id]">BE</a></b></button>
-    <button class="text-muted mr-3" [ngClass]="(student.evaluationIdFE)?'btn btn-success':'btn button-main'">
-      <b><a class="text-dark" *ngIf="student.evaluationIdFE"
-          [routerLink]="['/evaluation', student.evaluationIdFE]">FE</a><a class="text-dark"
-          *ngIf="!student.evaluationIdFE" [routerLink]="['/evaluation/new', student.id]">FE</a></b></button>
-    <button class="text-muted mr-3" [ngClass]="(student.evaluationIdQA)?'btn btn-success':'btn button-main'">
-      <b><a class="text-dark" *ngIf="student.evaluationIdQA"
-          [routerLink]="['/evaluation', student.evaluationIdQA]">QA</a><a class="text-dark"
-          *ngIf="!student.evaluationIdQA" [routerLink]="['/evaluation/new', student.id]">QA</a></b></button>
-    <button class="text-muted" [ngClass]="(student.evaluationIdUX)?'btn btn-success':'btn button-main'">
-      <b><a class="text-dark" *ngIf="student.evaluationIdUX"
-          [routerLink]="['/evaluation', student.evaluationIdUX]">UX</a><a class="text-dark"
-          *ngIf="!student.evaluationIdUX" [routerLink]="['/evaluation/new', student.id]">UX</a></b></button>
+    <h5 class="mr-auto my-auto">{{ student.name }} {{ student.surname }}
+    </h5>
+    <a class=" btn btn-success text-dark mr-3" *ngIf="student.evaluationIdBE"
+      [routerLink]="['/evaluation', student.evaluationIdBE]"><b>BE</b></a>
+    <a class="btn button-main text-dark mr-3" *ngIf="!student.evaluationIdBE"
+      [routerLink]="['/evaluation/new', student.id]"><b>BE</b>
+    </a>
+    <a class=" btn btn-success text-dark mr-3" *ngIf="student.evaluationIdFE"
+      [routerLink]="['/evaluation', student.evaluationIdFE]"><b>FE</b></a>
+    <a class="btn button-main text-dark mr-3" *ngIf="!student.evaluationIdFE"
+      [routerLink]="['/evaluation/new', student.id]"><b>FE</b>
+    </a>
+    <a class=" btn btn-success text-dark mr-3" *ngIf="student.evaluationIdQA"
+      [routerLink]="['/evaluation', student.evaluationIdQA]"><b>QA</b></a>
+    <a class="btn button-main text-dark mr-3" *ngIf="!student.evaluationIdQA"
+      [routerLink]="['/evaluation/new', student.id]"><b>QA</b>
+    </a>
+    <a class=" btn btn-success text-dark" *ngIf="student.evaluationIdUX"
+      [routerLink]="['/evaluation', student.evaluationIdUX]"><b>UX</b></a>
+    <a class="btn button-main text-dark" *ngIf="!student.evaluationIdUX"
+      [routerLink]="['/evaluation/new', student.id]"><b>UX</b>
+    </a>
   </span>
   <div class="card-body">
     <p class="card-text">
