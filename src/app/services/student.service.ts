@@ -17,6 +17,10 @@ export class StudentService {
     return this.httpClient.get<Student>(`/api/students/${id}`);
   }
 
+  addStudent(student: Student): Observable<Student> {
+    return this.httpClient.post<Student>('/api/students', student);
+  }
+  
   deleteStudentById(id: string): Observable<Student> {
     return this.httpClient.delete<Student>(`/api/students/${id}`);
   }

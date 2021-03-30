@@ -10,6 +10,7 @@ import { StudentDropdownComponent } from './student-dropdown/student-dropdown.co
 import { StudentsPageComponent } from './students-page/students-page.component';
 import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
 import { TeachersPageComponent } from './teachers-page/teachers-page.component';
+import { StudentAddComponent } from './student-add/student-add.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/evaluate' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'evaluate', component: StudentDropdownComponent, canActivate: [AuthGuard] },
   { path: 'evaluate/:id', component: StudentDropdownComponent, canActivate: [AuthGuard] },
   { path: 'overview', component: OverviewComponent, canActivate: [AuthGuard] },
+  { path: 'students/add', component: StudentAddComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/evaluate' }
 ];
 
