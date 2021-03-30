@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
     this.alertService.close();
     this.submitted = true;
     if (this.form.invalid) {
-      console.log(this.form.value);
       return;
     }
 
@@ -71,7 +70,7 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: () => {
           this.router.navigate(['/login'], { relativeTo: this.route });
-          this.notificationService.success("You are now ready to evaluate some students", `Welcome aboard, ${this.form.get('name')?.value}!`);
+          this.notificationService.success('You can now login' , 'Account registration is complete');
         },
       });
   }

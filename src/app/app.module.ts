@@ -24,6 +24,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SpinnerLoadingComponent } from './spinner-loading/spinner-loading.component';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SpinnerLoadingComponent } from './spinner-loading/spinner-loading.compo
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgxTrimDirectiveModule,
     NgbModule,
     ToastrModule.forRoot({
       timeOut: 7000,
