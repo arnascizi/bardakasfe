@@ -46,9 +46,7 @@ export class NotificationService {
       confirmButtonName: 'Confirm'
     })
     modalRef.result.then((confirmed) => {
-      if (confirmed) {
-        doIfConfirmed();
-      }
+      doIfConfirmed();
     })
   }
 }

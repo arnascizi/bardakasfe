@@ -12,6 +12,6 @@
         <button *ngIf='notification.cancelButtonName' type="button" class="btn btn-warning"
             (click)="activeModal.dismiss()">{{notification.cancelButtonName}}</button>
         <button *ngIf='notification.confirmButtonName' type="button" class="btn btn-success"
-            (click)="confirmedBack()">{{notification.confirmButtonName}}</button>
+            (click)="activeModal.close()">{{notification.confirmButtonName}}</button>
     </div>
 </section>

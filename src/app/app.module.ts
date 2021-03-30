@@ -22,6 +22,7 @@ import { StudentsInfoComponent } from './students-info/students-info.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { SpinnerLoadingComponent } from './spinner-loading/spinner-loading.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { BrowserModule } from '@angular/platform-browser';
     OverviewComponent,
     StudentsPageComponent,
     StudentsInfoComponent,
+    SpinnerLoadingComponent,
   ],
   imports: [
     BrowserModule,

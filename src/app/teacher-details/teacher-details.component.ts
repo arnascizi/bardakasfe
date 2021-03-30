@@ -8,6 +8,7 @@ import { StudentService } from '../services/student.service';
 import { Person } from '../shared/person';
 import { EvaluationTableItem } from '../shared/evaluation-table-item';
 import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-details',
@@ -23,6 +24,8 @@ export class TeacherDetailsComponent implements OnInit {
 
   teacher: Person;
 
+  isLoading$: Observable<boolean>;
+
   constructor(
     private studentService: StudentService,
     private router: Router,
@@ -32,6 +35,7 @@ export class TeacherDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading$ = of(true);
     this.getAllStudents();
 
     this.renderDataTable();
@@ -113,6 +117,7 @@ export class TeacherDetailsComponent implements OnInit {
       })
     );
     this.sortEvaluationTableByStudentName();
+    this.isLoading$ = of(false);
   }
 
   private sortEvaluationTableByStudentName(): void {

@@ -5,9 +5,9 @@ import {
   FormBuilder, FormControl, FormGroup,
   Validators
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { Grades } from '../constants/grades.enum';
 import { OveralGrades } from '../constants/overall-grades.enum';
@@ -32,7 +32,7 @@ export class EvaluationFormComponent implements OnInit {
   gradeSelectionOptions: object;
   overallEvaluationOptions: object;
   isSubmited: boolean;
-
+  isLoading$: Observable<boolean>;
   allStreams: string[];
 
   teacher: Person;
@@ -50,6 +50,7 @@ export class EvaluationFormComponent implements OnInit {
     private studentService: StudentService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private router: Router,
     private teacherService: TeacherService,
     private alertService: AlertService,
     private toastrService: ToastrService
@@ -63,6 +64,7 @@ export class EvaluationFormComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.isLoading$ = of(true);
     this.students$ = this.studentService.getAllStudents();
 
     this.loadRadioButtonValues();
@@ -86,6 +88,7 @@ export class EvaluationFormComponent implements OnInit {
           } else {
             this.teacher = currentUser;
             this.initForm();
+            this.isLoading$ = of(false);
           }
         })
       )
@@ -110,7 +113,10 @@ export class EvaluationFormComponent implements OnInit {
           this.evaluationForm.disable();
         })
       )
-      .subscribe();
+      .subscribe({
+        next: res => this.isLoading$ = of(false),
+        error: err => this.isLoading$ = of(false)
+      });
   }
 
   private fetchStudent(id: string): void {
@@ -230,6 +236,7 @@ export class EvaluationFormComponent implements OnInit {
       ],
       id: [evaluation?.id || null],
     });
+    this.isLoading$ = of(false);
   }
 
   private loadRadioButtonValues(): void {
@@ -266,7 +273,8 @@ export class EvaluationFormComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         (res) => {
-          this.toastrService.success('Evaluation updated!', 'Success');
+          this.toastrService.success('Evaluation created!', 'Success');
+          this.router.navigateByUrl(`/evaluate/${this.evaluationForm.value.studentId}`);
         },
         (err) => {
           this.handleError(err);
@@ -281,6 +289,7 @@ export class EvaluationFormComponent implements OnInit {
       .subscribe(
         (res) => {
           this.toastrService.success('Evaluation updated!', 'Success');
+          this.router.navigateByUrl(`/evaluate/${this.evaluationForm.value.studentId}`);
         },
         (err) => {
           this.handleError(err);
@@ -289,7 +298,7 @@ export class EvaluationFormComponent implements OnInit {
   }
 
   private handleError(error: ErrorEvent | HttpErrorResponse) {
-    if (!(error.error instanceof ErrorEvent) && error.error.status === 422) {
+    if (error.error.status === 422 || error.error.status === 409) {
       if (error.error.message !== undefined) {
         this.alertService.show(error.error.message, AlertType.Error);
       } else {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { EvaluationService } from '../services/evaluation.service';
@@ -18,6 +19,7 @@ export class StudentsPageComponent implements OnInit {
 
   private students: Student[];
   private evaluations: Evaluation[];
+  isLoading$: Observable<boolean>
 
   private loggedInTeacher: Person;
 
@@ -29,6 +31,7 @@ export class StudentsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading$ = of(true);
     this.authService
       .getCurrentUser()
       .pipe(
@@ -53,7 +56,10 @@ export class StudentsPageComponent implements OnInit {
                       this.setupStudentInfoItems();
                     })
                   )
-                  .subscribe();
+                  .subscribe({
+                    next: res => this.isLoading$ = of(false),
+                    error: err => this.isLoading$ = of(false)
+                  });
               })
             )
             .subscribe();

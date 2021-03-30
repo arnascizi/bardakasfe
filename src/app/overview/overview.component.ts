@@ -24,14 +24,16 @@ export class OverviewComponent implements OnInit {
   evaluations: Evaluation[];
   overviewItems: OverviewItem[] = [];
   overviewItems$: Observable<OverviewItem[]>;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private studentService: StudentService,
     private evaluationService: EvaluationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.isLoading$ = of(true)
     forkJoin([
       this.studentService.getAllStudents(),
       this.evaluationService.getAllEvaluations(),
@@ -44,7 +46,10 @@ export class OverviewComponent implements OnInit {
           this.initOverviewItems();
         })
       )
-      .subscribe();
+      .subscribe({
+        next: x => this.isLoading$ = of(false),
+        error: err => this.isLoading$ = of(false)
+      });
   }
 
   initOverviewItems() {
@@ -71,8 +76,8 @@ export class OverviewComponent implements OnInit {
           ),
         });
       });
-      this.overviewItems$ = of(this.overviewItems);
     }
+    this.overviewItems$ = of(this.overviewItems.sort((a, b) => this.gradeToNum(b.beOverallGrade) - this.gradeToNum(a.beOverallGrade)));
   }
 
   private calcEvaluationAverages(stream: string, student: Student): string {
