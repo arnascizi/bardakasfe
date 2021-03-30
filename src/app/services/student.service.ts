@@ -20,7 +20,7 @@ export class StudentService {
   addStudent(student: Student): Observable<Student> {
     return this.httpClient.post<Student>('/api/students', student);
   }
-  
+
   deleteStudentById(id: string): Observable<Student> {
     return this.httpClient.delete<Student>(`/api/students/${id}`);
   }

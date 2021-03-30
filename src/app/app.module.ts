@@ -7,7 +7,7 @@ import { TeacherDetailsComponent } from './teacher-details/teacher-details.compo
 import { TeachersPageComponent } from './teachers-page/teachers-page.component';
 import { TeachersInfoComponent } from './teachers-info/teachers-info.component';
 import { HttpErrorInterceptor } from './http-interceptor/http-error-interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationModalComponent } from './notification-modal/notification-modal.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -23,6 +23,8 @@ import { StudentAddComponent } from './student-add/student-add.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { SpinnerLoadingComponent } from './spinner-loading/spinner-loading.component';
+import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { BrowserModule } from '@angular/platform-browser';
     OverviewComponent,
     StudentsPageComponent,
     StudentsInfoComponent,
+    SpinnerLoadingComponent,
     StudentAddComponent,
   ],
   imports: [
@@ -49,19 +52,21 @@ import { BrowserModule } from '@angular/platform-browser';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgxTrimDirectiveModule,
     NgbModule,
+    NgxTrimDirectiveModule,
     ToastrModule.forRoot({
       timeOut: 7000,
       preventDuplicates: true,
-    })
+    }),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

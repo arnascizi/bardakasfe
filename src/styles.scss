@@ -1,15 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 html,
 body {
   height: 100%;
   font-family: "Roboto", sans-serif;
+  font-weight: 700;
 }
 
 button.btn.button-main{
     background-color: #fbb11c9f;
 }
+
 a.btn.button-main{
   background-color: #fbb11c9f;
+}
+
+.font-400.font-weight {
+  font-weight: 400;
 }

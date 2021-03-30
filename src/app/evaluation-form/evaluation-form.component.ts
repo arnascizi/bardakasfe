@@ -2,12 +2,14 @@ import { KeyValue } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder, FormControl, FormGroup,
-  Validators
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { Grades } from '../constants/grades.enum';
 import { OveralGrades } from '../constants/overall-grades.enum';
@@ -31,8 +33,7 @@ export class EvaluationFormComponent implements OnInit {
   evaluationForm: FormGroup;
   gradeSelectionOptions: object;
   overallEvaluationOptions: object;
-  isSubmited: boolean;
-
+  isLoading$: Observable<boolean>;
   allStreams: string[];
 
   teacher: Person;
@@ -64,6 +65,7 @@ export class EvaluationFormComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.isLoading$ = of(true);
     this.students$ = this.studentService.getAllStudents();
 
     this.loadRadioButtonValues();
@@ -78,15 +80,25 @@ export class EvaluationFormComponent implements OnInit {
           const evaluationId = router.get('evaluationId');
           const studentId = router.get('studentId');
           if (evaluationId && evaluationId != 'new') {
-            this.loggedUser = currentUser;
+            this.loggedUser = {
+              ...currentUser,
+              fullName: `${currentUser.name} ${currentUser.surname}`,
+            };
             this.prefillEditForm(evaluationId);
           } else if (studentId) {
-            this.teacher = currentUser;
+            this.teacher = {
+              ...currentUser,
+              fullName: `${currentUser.name} ${currentUser.surname}`,
+            };
             this.initForm(undefined, studentId);
             this.fetchStudent(studentId);
           } else {
-            this.teacher = currentUser;
+            this.teacher = {
+              ...currentUser,
+              fullName: `${currentUser.name} ${currentUser.surname}`,
+            };
             this.initForm();
+            this.isLoading$ = of(false);
           }
         })
       )
@@ -111,7 +123,10 @@ export class EvaluationFormComponent implements OnInit {
           this.evaluationForm.disable();
         })
       )
-      .subscribe();
+      .subscribe({
+        next: res => this.isLoading$ = of(false),
+        error: err => this.isLoading$ = of(false)
+      });
   }
 
   private fetchStudent(id: string): void {
@@ -158,13 +173,6 @@ export class EvaluationFormComponent implements OnInit {
       ],
       teacherId: [evaluation?.teacherId || this.teacher.id],
       stream: [evaluation?.stream || '', { validators: [Validators.required] }],
-      teacherComment: [
-        evaluation?.teacherComment || null,
-        {
-          validators: [Validators.maxLength(this.maxCharsForText)],
-          updateOn: 'blur',
-        },
-      ],
       communicationGrade: [
         evaluation?.communicationGrade || '',
         [Validators.required],
@@ -231,6 +239,7 @@ export class EvaluationFormComponent implements OnInit {
       ],
       id: [evaluation?.id || null],
     });
+    this.isLoading$ = of(false);
   }
 
   private loadRadioButtonValues(): void {
@@ -268,7 +277,9 @@ export class EvaluationFormComponent implements OnInit {
       .subscribe(
         (res) => {
           this.toastrService.success('Evaluation created!', 'Success');
-          this.router.navigateByUrl(`/evaluate/${this.evaluationForm.value.studentId}`);
+          this.router.navigateByUrl(
+            `/evaluate/${this.evaluationForm.value.studentId}`
+          );
         },
         (err) => {
           this.handleError(err);
@@ -283,7 +294,9 @@ export class EvaluationFormComponent implements OnInit {
       .subscribe(
         (res) => {
           this.toastrService.success('Evaluation updated!', 'Success');
-          this.router.navigateByUrl(`/evaluate/${this.evaluationForm.value.studentId}`);
+          this.router.navigateByUrl(
+            `/evaluate/${this.evaluationForm.value.studentId}`
+          );
         },
         (err) => {
           this.handleError(err);

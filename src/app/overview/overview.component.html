@@ -28,12 +28,21 @@
           (click)="goToStudentDropdown(overviewItem.id)"
         >
           <td>{{ overviewItem.fullStudentName }}</td>
-          <td>{{ overviewItem.beOverallGrade }}</td>
-          <td>{{ overviewItem.feOverallGrade }}</td>
-          <td>{{ overviewItem.uxOverallGrade }}</td>
-          <td>{{ overviewItem.qaOverallGrade }}</td>
+          <td class="font-400 font-weight">
+            {{ overviewItem.beOverallGrade }}
+          </td>
+          <td class="font-400 font-weight">
+            {{ overviewItem.feOverallGrade }}
+          </td>
+          <td class="font-400 font-weight">
+            {{ overviewItem.uxOverallGrade }}
+          </td>
+          <td class="font-400 font-weight">
+            {{ overviewItem.qaOverallGrade }}
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<app-spinner-loading [isLoading$]="isLoading$"></app-spinner-loading>

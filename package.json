@@ -33,6 +33,7 @@
     "http-proxy-middleware": "^0.19.1",
     "jquery": "^3.6.0",
     "ngx-toastr": "^13.2.1",
+    "ngx-trim-directive": "^1.1.0",
     "path": "^0.12.7",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
