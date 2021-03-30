@@ -130,6 +130,6 @@ export class StudentsPageComponent implements OnInit {
   }
 
   onClickButton() {
-    this.router.navigateByUrl(`dropdown`);
+    this.router.navigateByUrl(`students/add`);
   }
 }

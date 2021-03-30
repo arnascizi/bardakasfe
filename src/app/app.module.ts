@@ -19,6 +19,7 @@ import { StudentDropdownEvaluationsComponent } from './student-dropdown-evaluati
 import { OverviewComponent } from './overview/overview.component';
 import { StudentsPageComponent } from './students-page/students-page.component';
 import { StudentsInfoComponent } from './students-info/students-info.component';
+import { StudentAddComponent } from './student-add/student-add.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +43,7 @@ import { SpinnerLoadingComponent } from './spinner-loading/spinner-loading.compo
     StudentsPageComponent,
     StudentsInfoComponent,
     SpinnerLoadingComponent,
+    StudentAddComponent,
   ],
   imports: [
     BrowserModule,

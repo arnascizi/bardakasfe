@@ -1,5 +1,5 @@
-<div class="container my-5">
-  <div class="d-flex justify-content-center h-100 my-5">
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
     <div class="card my-5">
       <h4 class="card-header">Register</h4>
       <div class="card-body">
@@ -61,7 +61,7 @@
             <label for="isTeacher" class="text-muted mr-2">Are you a teacher?</label>
             <input type="checkbox" class="btn-check mr-3 mt-2" formControlName="isTeacher"
             [checked]="isATeacher" (change)="isATeacher = !isATeacher">
-            <button [disabled]="loading" class="btn btn-main float-right">
+            <button [disabled]="loading" class="btn button-main float-right">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Register
             </button>
