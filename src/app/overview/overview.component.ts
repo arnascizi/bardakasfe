@@ -24,6 +24,7 @@ export class OverviewComponent implements OnInit {
   evaluations: Evaluation[];
   overviewItems: OverviewItem[] = [];
   overviewItems$: Observable<OverviewItem[]>;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private studentService: StudentService,
@@ -32,6 +33,7 @@ export class OverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoading$ = of(true)
     forkJoin([
       this.studentService.getAllStudents(),
       this.evaluationService.getAllEvaluations(),
@@ -44,7 +46,10 @@ export class OverviewComponent implements OnInit {
           this.initOverviewItems();
         })
       )
-      .subscribe();
+      .subscribe({
+        next: x => this.isLoading$ = of(false),
+        error: err => this.isLoading$ = of(false)
+      });
   }
 
   initOverviewItems() {

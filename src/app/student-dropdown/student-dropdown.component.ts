@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { OveralGradesEnumFunctions } from '../constants/overall-grades.enum';
 import { EvaluationService } from '../services/evaluation.service';
@@ -17,6 +18,7 @@ import { Teacher } from '../shared/teacher';
 export class StudentDropdownComponent implements OnInit {
   @Input()
   selectedStudent: Student;
+  isLoading$: Observable<boolean>;
 
   private routeStudentId: string | null;
 
@@ -38,6 +40,7 @@ export class StudentDropdownComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading$ = of(true);
     this.routeStudentId = this.route.snapshot.paramMap.get('id');
 
     this.defaultOptionStudent = {
@@ -111,6 +114,7 @@ export class StudentDropdownComponent implements OnInit {
     evals.forEach((evaluation) => {
       this.evaluationItems.push(this.getEvaluationDropdownItem(evaluation));
     });
+    this.isLoading$ = of(false);
   }
 
   private setupEvaluations(): void {
@@ -161,7 +165,6 @@ export class StudentDropdownComponent implements OnInit {
       updatedAt: date,
       overallGrade: overallGrade,
     };
-
     return evaluationItem;
   }
 

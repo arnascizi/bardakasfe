@@ -28,7 +28,7 @@ export class AuthService {
   isAuthenticated(): Promise<boolean> {
     const promise = new Promise<boolean>((
       resolve => {
-        resolve(this.isLogedIn);
+        resolve(localStorage.getItem('isLoggedIn') === 'true');
       }
     ));
     return promise;
@@ -44,12 +44,14 @@ export class AuthService {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.userSubject.next(user);
         this.isLogedIn = true;
+        localStorage.setItem('isLoggedIn', 'true');
         return user;
       }));
   }
 
   register(teacher: Teacher): Observable<Teacher> {
     this.isLogedIn = true;
+    localStorage.setItem('isLoggedIn', 'true');
     return this.httpClient.post<Teacher>(`/api/teachers`, teacher);
   }
 
@@ -58,5 +60,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.userSubject.next(null!);
     this.router.navigate([`/login`]);
+    localStorage.removeItem('isLoggedIn');
   }
 }
