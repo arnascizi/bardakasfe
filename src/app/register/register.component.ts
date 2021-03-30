@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.router.navigate(['/'], { relativeTo: this.route });
+          this.router.navigate(['/login'], { relativeTo: this.route });
           this.notificationService.success("You are now ready to evaluate some students", `Welcome aboard, ${this.form.get('name')?.value}!`);
         },
       });
