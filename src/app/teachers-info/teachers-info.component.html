@@ -6,9 +6,8 @@
         ><small class="mr-3">{{ teacher.username }}</small>
       </span>
     </h5>
-    <p class="card-text">
-      Evaluations made: (<span>{{ evaluationListCount }}</span
-      >)
+    <p class="card-text font-400 font-weight">
+      Evaluations made: <span>{{ evaluationListCount }}</span>
       <span
         ><a
           [routerLink]="['/teachers', teacher.id]"
