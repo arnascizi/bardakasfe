@@ -12,7 +12,7 @@
               </span>
             </div>
             <input type="text" formControlName="name" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }" placeholder="First Name"
+              [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }" placeholder="First Name *"
               trim="blur" />
             <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
               <div *ngIf="formControls.name.errors.required">First Name is required</div>
@@ -25,7 +25,7 @@
               </span>
             </div>
             <input type="text" formControlName="surname" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && formControls.surname.errors }" placeholder="Last Name"
+              [ngClass]="{ 'is-invalid': submitted && formControls.surname.errors }" placeholder="Last Name *"
               trim="blur" />
             <div *ngIf="submitted && formControls.surname.errors" class="invalid-feedback">
               <div *ngIf="formControls.surname.errors.required">Last Name is required</div>
@@ -38,7 +38,7 @@
               </span>
             </div>
             <input type="text" formControlName="username" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" placeholder="Username"
+              [ngClass]="{ 'is-invalid': submitted && formControls.username.errors }" placeholder="Username *"
               trim="blur" />
             <div *ngIf="submitted && formControls.username.errors" class="invalid-feedback">
               <div *ngIf="formControls.username.errors.required">Username is required</div>
@@ -51,7 +51,7 @@
               </span>
             </div>
             <input type="password" formControlName="password" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" placeholder="Password"
+              [ngClass]="{ 'is-invalid': submitted && formControls.password.errors }" placeholder="Password *"
               trim="blur" />
             <div *ngIf=" submitted && formControls.password.errors" class="invalid-feedback">
               <div *ngIf="formControls.password.errors.required">Password is required</div>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="form-group float-right">
-            <label for="isTeacher" class="text-muted mr-2">Are you a teacher?</label>
+            <label for="isTeacher" class="text-muted mr-2">I am a teacher</label>
             <input type="checkbox" class="btn-check mr-3 mt-2" formControlName="isTeacher" [checked]="isATeacher"
               (change)="isATeacher = !isATeacher">
             <button [disabled]="loading" class="btn button-main float-right">
