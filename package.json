@@ -9,9 +9,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "serve": "concurrently \"npm run start:frontend\" \"npm run start:server\"",
+    "serve": "concurrently \"npm run serve:fetesting\" \"npm run serve:server\"",
     "serve:frontend": "ng serve --proxyConfig=proxy.config.json",
-    "serve:server": "json-server --watch ./db.json"
+    "serve:server": "json-server --watch ./db.json",
+    "serve:fetesting": "ng serve --proxyConfig=proxy-test.config.json",
+    "serve:beintegrate": "ng serve --proxyConfig=proxy-be.config.json"
   },
   "private": true,
   "dependencies": {
