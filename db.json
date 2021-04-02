@@ -82,56 +82,64 @@
       "name": "Marcia",
       "surname": "David",
       "username": "David89",
-      "password": "6048d820b9693e2936a907d2"
+      "password": "6048d820b9693e2936a907d2",
+      "isTeacher": true
     },
     {
       "id": 456847,
       "name": "Jenny",
       "surname": "Singleton",
       "username": "Jenny86",
-      "password": "6048d820cd0098d70a9e5cfa"
+      "password": "6048d820cd0098d70a9e5cfa",
+      "isTeacher": false
     },
     {
       "id": 456848,
       "name": "Marta",
       "surname": "Romero",
       "username": "Marta66",
-      "password": "6048d820304090aa3fe9a66d"
+      "password": "6048d820304090aa3fe9a66d",
+      "isTeacher": true
     },
     {
       "id": 456849,
       "name": "Richardson",
       "surname": "Hebert",
       "username": "Hebert25",
-      "password": "6048d82097025bf760677d74"
+      "password": "6048d82097025bf760677d74",
+      "isTeacher": true
     },
     {
       "id": 456850,
       "name": "Hensley",
       "surname": "May",
       "username": "May70",
-      "password": "6048d8201dfbf223024ec8cb"
+      "password": "6048d8201dfbf223024ec8cb",
+      "isTeacher": false
     },
     {
       "id": 456851,
       "name": "Elisabeth",
       "surname": "Stanton",
       "username": "Stanton33",
-      "password": "6048d820ccf48c55043c9a62"
+      "password": "6048d820ccf48c55043c9a62",
+      "isTeacher": true
     },
     {
       "id": 456852,
       "name": "Elma",
       "surname": "Guy",
       "username": "Elma78",
-      "password": "6048d8208545827ef427d41b"
+      "password": "6048d8208545827ef427d41b",
+      "isTeacher": false
     },
     {
       "id": 456853,
       "name": "Josefina",
       "surname": "Cameron",
       "username": "Josefina36",
-      "password": "6048d8206dab320218555f8e"
+      "password": "6048d8206dab320218555f8e",
+      "isTeacher": false
     }
   ],
   "evaluations": [
